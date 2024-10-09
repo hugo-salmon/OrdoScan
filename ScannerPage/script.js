@@ -1,4 +1,5 @@
 // Sélection des éléments de la page
+import { GOOGLE_API_KEY } from '../config.js';
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
 const fileInfo = document.getElementById('fileInfo');
@@ -191,7 +192,7 @@ async function handleFile(file) {
     reader.onload = async function() {
         const imageData = reader.result.split(',')[1];
         try {
-            const response = await fetch('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCR6hxH_BphORge_idpW1cLJLtUBQN1WrA', {
+            const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_API_KEY}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
