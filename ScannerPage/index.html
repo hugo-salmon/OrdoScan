@@ -38,6 +38,27 @@
       <p>Glissez-déposez une image ici ou cliquez pour sélectionner un fichier</p>
       <input type="file" id="fileInput" accept=".png, .jpeg" hidden />
     </div>
+    <div id="previewContainer">
+      <div class="preview-header">
+        <p id="previewName"></p>
+        <button id="removePreview">Supprimer l'aperçu</button>
+      </div>
+      <div class="preview-box">
+        <div class="zoom-controls">
+          <button id="zoomOut">-</button>
+          <span id="zoomLevel">100%</span>
+          <button id="zoomIn">+</button>
+          <button id="resetZoom">Réinitialiser</button>
+        </div>
+        <div class="image-container">
+          <img id="previewImage" src="" alt="Aperçu du document" />
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
     <p id="fileInfo">Aucun fichier sélectionné.</p>
     <div id="loader" class="loader" hidden></div>
 
@@ -52,7 +73,7 @@
           <tr>
             <th>Médicament</th>
             <th>Dosage</th>
-            <th>Récurrence</th>
+            <th>Heures de rappel</th>
             <th>Date de fin</th>
             <th>Notes</th>
             <th>Actions</th>
@@ -75,7 +96,7 @@
               <th><input type="checkbox" id="selectAll" /></th>
               <th>Médicament</th>
               <th>Dosage</th>
-              <th>Récurrence</th>
+              <th>Heures de rappel</th>
               <th>Date de fin</th>
               <th>Notes</th>
             </tr>
