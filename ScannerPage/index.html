@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="styles.css">
   <script src="../config.js" defer></script>
   <script type="module" src="script.js"></script>
+  <script src="../trad.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 </head>
 <body>
   <header class="navbar">
@@ -18,6 +20,15 @@
         <a href="/"><i class="fas fa-pills"></i> Mes Médicaments</a>
         <a href="/"><i class="fas fa-history"></i> Historique</a>
         <a href="/"><i class="fas fa-cog"></i> Paramètres</a>
+        <select id="langue">
+          <option value="FR"><span class="flag-icon flag-icon-fr">FR</span></option>
+          <option value="EN"><span class="flag-icon flag-icon-gb">EN</span></option>
+          <option value="ES"><span class="flag-icon flag-icon-es">ES</span></option>
+          <option value="DE"><span class="flag-icon flag-icon-de">DE</span></option>
+          <option value="IT"><span class="flag-icon flag-icon-it">IT</span></option>
+          <option value="PT"><span class="flag-icon flag-icon-pt">PT</span></option>
+          <option value="NL"><span class="flag-icon flag-icon-nl">NL</span></option>
+      </select>
       </nav>
       <div class="user-menu">
         <img src="../assets/logo ol.svg" alt="Avatar" class="avatar">
