@@ -135,6 +135,19 @@ main {
   text-align: center;
 }
 
+#previewName,
+#fileInfo {
+  font-size: 1rem;
+  color: #333;
+  background-color: #e6f2ff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #loader {
   border: 5px solid #f3f3f3;
   border-top: 5px solid #0E7ACA;
@@ -361,10 +374,25 @@ main {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.deleteRecapRow:hover {
-  background-color: #cc0000;
+.deleteRecapRow:disabled {
+  background-color: #ccc; /* Couleur grise */
+  color: #666; /* Couleur du texte */
+  cursor: not-allowed; /* Curseur désactivé */
+  border: none; /* Retirer les bordures */
 }
+
+
+.deleteRecapRow:hover:not(:disabled) {
+  background-color: #cc0000; /* Couleur rouge uniquement si le bouton n'est pas désactivé */
+}
+
+.deleteRecapRow:disabled {
+  background-color: #ccc; /* Couleur grise */
+  color: #666; /* Couleur du texte */
+  cursor: not-allowed; /* Curseur désactivé */
+  border: none; /* Retirer les bordures */
+}
+
 
 .editRecapRow {
   background-color: #0E7ACA;
@@ -419,7 +447,8 @@ main {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px; /* Espace entre le header et l'image */
+  margin-bottom: 10px;
+  flex-wrap: wrap; /* Permettre à l'élément de passer à la ligne si nécessaire */
 }
 
 #previewName {
@@ -505,3 +534,32 @@ main {
   text-align: center;
   margin-top: 10px;
 }
+
+.tooltip-icon {
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tooltip-icon::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 150%; /* Adjust this to place the tooltip above or below */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tooltip-icon:hover::after {
+  opacity: 1;
+}
+

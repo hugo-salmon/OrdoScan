@@ -19,6 +19,15 @@ const previewContainer = document.getElementById('previewContainer'); // Nouveau
 const previewImage = document.getElementById('previewImage'); // Image d'aperçu
 const previewName = document.getElementById('previewName'); // Nom du fichier sélectionné
 const removePreviewButton = document.getElementById('removePreview');
+const addNewMedicationButton = document.getElementById('addNewMedication');
+
+const notyf = new Notyf({
+    duration: 5000,
+    position: {
+        x: 'right',
+        y: 'top',
+    }
+});
 
 // S'assurer que la modale est cachée au démarrage
 medicationModal.hidden = true;
@@ -28,9 +37,39 @@ previewContainer.style.display = 'none';
 const knownMedications = [
     'COZAAR', 'ASPIRINE CARDIO', 'TIEL DIEM', 'FERAMALT GEL', 'MELIANE',
     'DOLIPRANE', 'IBUPROFENE', 'EFFERALGAN', 'PARACETAMOL', 'ADVIL',
+    'XANAX', 'LORAZEPAM', 'VALIUM', 'PROZAC', 'ZYPREXA',
+    'AMOXICILLINE', 'AUGMENTIN', 'CEFTRIAXONE', 'DOXYCYCLINE', 'CIPROFLOXACINE',
+    'LEVOTHYROX', 'METFORMINE', 'INSULINE', 'GLUCOPHAGE', 'LANTUS',
+    'VENTOLINE', 'SERETIDE', 'SPIRIVA', 'SYMBICORT', 'FLIXOTIDE',
+    'ATARAX', 'LEXOMIL', 'TEMESTA', 'ZOLPIDEM', 'STILNOX',
+    'NEXIUM', 'OMEPRAZOLE', 'PANTOPRAZOLE', 'RANITIDINE', 'GAVISCON',
+    'CRESTOR', 'LIPITOR', 'PRAVACHOL', 'ZOCOR', 'TRICOR',
+    'LISINOPRIL', 'ENALAPRIL', 'RAMIPRIL', 'PERINDOPRIL', 'COVERSYL',
+    'METOPROLOL', 'ATENOLOL', 'BISOPROLOL', 'CARVEDILOL', 'PROPRANOLOL',
+    'LOSARTAN', 'VALSARTAN', 'CANDESARTAN', 'IRBESARTAN', 'OLMESARTAN',
+    'FUROSEMIDE', 'HYDROCHLOROTHIAZIDE', 'SPIRONOLACTONE', 'LASILIX', 'ALDACTONE',
+    'PLAVIX', 'CLOPIDOGREL', 'XARELTO', 'ELIQUIS', 'PRADAXA',
+    'MORPHINE', 'TRAMADOL', 'CODEINE', 'FENTANYL', 'OXICODONE',
+    'PAROXETINE', 'SERTRALINE', 'CITALOPRAM', 'ESCITALOPRAM', 'FLUOXETINE',
+    'ARTHROTEC', 'CELEBREX', 'NAPROXENE', 'KETOPROFENE', 'DICLOFENAC',
+    'SALBUTAMOL', 'BROMHEXINE', 'CLARITINE', 'ZYRTEC', 'CELIPROLOL',
+    'VIAGRA', 'CIALIS', 'LEVITRA', 'SPEDRA', 'MYCOSTER',
+    'INSUMAN', 'NOVORAPID', 'HUMALOG', 'ACTRAPID', 'LANTUS',
+    'SINGULAIR', 'MONTELUKAST', 'ZADITEN', 'KETOTIFENE', 'AERIUS',
+    'TRIMETHOPRIME', 'COTRIMOXAZOLE', 'FURADANTIN', 'FOSFOMYCINE', 'MACRODANTINE',
+    'NIFEDIPINE', 'AMLODIPINE', 'VERAPAMIL', 'DILTIAZEM', 'LOXEN',
+    'PREDNISOLONE', 'CORTANCYL', 'SOLUPRED', 'DIPROSONE', 'LOCOID',
+    'BIODERMA', 'DUCRAY', 'URIAGE', 'LA ROCHE-POSAY', 'AVENE'
 ];
 
+const ORDONNANCE_KEY = 'ordonnanceData';
+const RECAP_KEY = 'recapData';
 let zoomLevel = 100;
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadOrdonnance();
+    loadRecap();
+  });
 
 document.getElementById('zoomIn').addEventListener('click', () => {
   if (zoomLevel < 200) { // Limite de zoom maximale (par exemple, 200%)
@@ -56,6 +95,60 @@ function updateZoom() {
   previewImage.style.transform = `scale(${zoomLevel / 100})`;
   document.getElementById('zoomLevel').textContent = `${zoomLevel}%`;
 }
+
+function loadOrdonnance() {
+    const savedData = JSON.parse(localStorage.getItem(ORDONNANCE_KEY));
+    if (savedData && savedData.previewSrc) {
+        previewImage.src = savedData.previewSrc;
+
+        // Vérifier que previewName et fileInfo existent avant de modifier leur texte
+        if (previewName) {
+            previewName.textContent = savedData.fileName;
+        }
+        if (fileInfo) {
+            fileInfo.textContent = `Fichier sélectionné : ${savedData.fileName}`;
+        }
+        
+        fileInput.style.display = 'none';
+        dropzone.style.display = 'none';
+        previewContainer.style.display = 'block';
+    } else if (fileInfo) {
+        fileInfo.textContent = 'Aucun fichier sélectionné.';
+    }
+}
+
+
+
+function saveOrdonnance(file, src) {
+    const data = {
+      fileName: file.name,
+      previewSrc: src,
+    };
+    localStorage.setItem(ORDONNANCE_KEY, JSON.stringify(data));
+}
+
+function clearStorage() {
+    localStorage.removeItem(ORDONNANCE_KEY);
+    localStorage.removeItem(RECAP_KEY);
+    fileInfo.textContent = 'Aucun fichier sélectionné.';
+}
+  
+  // Fonction pour charger le récapitulatif à partir du localStorage
+  function loadRecap() {
+    const savedData = JSON.parse(localStorage.getItem(RECAP_KEY));
+    if (savedData) {
+      updateRecapTable(savedData);
+      recapContainer.style.display = 'block';
+    }
+}
+function saveRecap(data) {
+    localStorage.setItem(RECAP_KEY, JSON.stringify(data));
+    sendEmailWithICSLink(data); // Envoi de l'email avec les nouvelles données
+}
+
+
+
+
 
 
 // Gestion des événements pour la zone de dépôt
@@ -103,6 +196,35 @@ function updateNoReminderMessage(reminderTimesContainer, noReminderMessage) {
     noReminderMessage.style.display = hasReminderTimes ? 'none' : 'block';
 }
 
+function createMedicationSuggestionsInput(inputElement) {
+    const datalistId = 'medicationSuggestions';
+    let datalist = document.getElementById(datalistId);
+
+    // Créer le datalist s'il n'existe pas encore
+    if (!datalist) {
+        datalist = document.createElement('datalist');
+        datalist.id = datalistId;
+        document.body.appendChild(datalist);
+    }
+
+    // Mettre à jour le datalist avec les noms des médicaments connus
+    datalist.innerHTML = '';
+    knownMedications.forEach(med => {
+        const option = document.createElement('option');
+        option.value = med;
+        datalist.appendChild(option);
+    });
+
+    // Associer le datalist au champ input
+    inputElement.setAttribute('list', datalistId);
+
+    // Ajouter un événement pour remplir le champ avec la suggestion choisie
+    inputElement.addEventListener('input', () => {
+        if (knownMedications.includes(inputElement.value.toUpperCase())) {
+            inputElement.value = inputElement.value.toUpperCase();
+        }
+    });
+}
 // Remplissage du tableau des médicaments
 function populateMedicationTable(medications) {
     medicationTable.innerHTML = '';
@@ -123,6 +245,9 @@ function populateMedicationTable(medications) {
             <td><input type="text" placeholder="Notes"></td>
         `;
         medicationTable.appendChild(row);
+
+        const nameInput = row.querySelector('td:nth-child(2) input');
+        createMedicationSuggestionsInput(nameInput);
 
         const addReminderTimeButton = row.querySelector('.addReminderTime');
         const reminderTimesContainer = row.querySelector('.reminderTimes');
@@ -164,14 +289,14 @@ function populateMedicationTable(medications) {
 }
 
 
-
+// Validation des champs pour activer le bouton "Confirmer"
 // Validation des champs pour activer le bouton "Confirmer"
 function updateConfirmButtonState() {
     const rows = medicationTable.querySelectorAll('tr');
     let allFieldsValid = true;
 
     rows.forEach(row => {
-        const requiredFields = row.querySelectorAll('.requiredField');
+        const requiredFields = row.querySelectorAll('.requiredField:not([placeholder="Notes"])'); // Exclure le champ "Notes"
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 allFieldsValid = false;
@@ -181,6 +306,31 @@ function updateConfirmButtonState() {
 
     confirmMedications.disabled = !allFieldsValid;
     confirmMedications.style.opacity = allFieldsValid ? '1' : '0.6';
+}
+
+
+
+function getCurrentRecapData() {
+    const rows = recapTable.querySelectorAll('tr');
+    const medicationData = [];
+
+    rows.forEach(row => {
+        const name = row.querySelector('td:nth-child(1) input').value;
+        const dosage = row.querySelector('td:nth-child(2) input').value;
+        const endDate = row.querySelector('td:nth-child(4) input').value;
+        const notes = row.querySelector('td:nth-child(5) input').value;
+        const reminderTimes = Array.from(row.querySelectorAll('.reminderTimes input[type="time"]')).map(input => input.value);
+
+        medicationData.push({
+            name,
+            dosage,
+            endDate,
+            notes,
+            reminderTimes
+        });
+    });
+
+    return medicationData;
 }
 
 // Sélectionner ou désélectionner toutes les cases à cocher
@@ -219,30 +369,47 @@ medicationTable.addEventListener('change', (event) => {
     }
 });
 
+addNewMedicationButton.addEventListener('click', () => {
+    const newMedData = {
+        name: '',
+        dosage: '',
+        reminderTimes: [],
+        endDate: '',
+        notes: ''
+    };
+
+    const updatedRecapData = [...JSON.parse(localStorage.getItem(RECAP_KEY) || '[]'), newMedData];
+
+    updateRecapTable(updatedRecapData);
+    saveRecap(updatedRecapData); // Sauvegarde les données et envoie le mail avec les nouvelles données
+    notyf.success('Médicament ajouté au récapitulatif.');
+});
+
 // Traitement du fichier
 async function handleFile(file) {
     if (!file) {
         fileInfo.textContent = 'Aucun fichier sélectionné.';
+        notyf.error('Aucun fichier sélectionné.');
         return;
     }
 
     if (!file.type.match('image.*')) {
         fileInfo.textContent = 'Veuillez sélectionner une image valide.';
+        notyf.error('Veuillez sélectionner une image valide.');
         return;
     }
 
     // Masquer le message de fichier et afficher le conteneur d'aperçu
-    fileInfo.style.display = 'none';
+    fileInfo.textContent = `Fichier sélectionné : ${file.name}`;
     dropzone.style.display = 'none';
     previewContainer.style.display = 'block';
-    previewName.textContent = `Fichier sélectionné : ${file.name}`;
+    notyf.success('Fichier ajouté avec succès.');
 
     // Créer un aperçu de l'image
     const reader = new FileReader();
     reader.onload = function() {
         previewImage.src = reader.result;
-
-        // Analyser le texte une fois que l'image est chargée
+        saveOrdonnance(file, reader.result);
         analyzeImage(reader.result);
     };
     reader.readAsDataURL(file);
@@ -294,27 +461,41 @@ async function analyzeImage(imageData) {
 
 // Réafficher la dropzone et masquer le conteneur d'aperçu si l'utilisateur souhaite annuler
 removePreviewButton.addEventListener('click', () => {
-    fileInput.value = '';
-    dropzone.style.display = 'block';
-    previewContainer.style.display = 'none';
-    previewImage.src = '';
-    previewName.textContent = '';
-    fileInfo.style.display = 'block';
-    fileInfo.textContent = 'Aucun fichier sélectionné.';
+    // Effacer le stockage local pour l'ordonnance et le récapitulatif
+    clearStorage();
 
-    // Vider le contenu du récapitulatif et masquer le conteneur
+    // Vider le contenu du récapitulatif, masquer le conteneur et réinitialiser l'affichage
     recapTable.innerHTML = '';
-    recapContainer.style.display = 'none';
+    updateRecapContainerVisibility(); // Masquer le conteneur si aucune donnée n'est présente
+
+    // Réinitialiser les éléments de l'interface utilisateur
+    fileInput.value = ''; // Réinitialiser l'input file pour permettre une nouvelle sélection
+    dropzone.style.display = 'block'; // Afficher la zone de dépôt
+    previewContainer.style.display = 'none'; // Masquer le conteneur d'aperçu
+    previewImage.src = ''; // Réinitialiser l'image d'aperçu
+    previewName.textContent = 'Aucun fichier sélectionné.'; // Vider le nom de l'aperçu
+    fileInfo.textContent = 'Aucun fichier sélectionné.'; // Mettre à jour le message pour indiquer qu'il n'y a pas de fichier sélectionné
 
     // Masquer la modale au cas où elle serait ouverte
     medicationModal.hidden = true;
+
+    notyf.success('Ordonnance et récapitulatif supprimés avec succès.');
 });
+
+
+
+
+
+
+
+
 
 // Fermeture de la modale
 closeModal.addEventListener('click', () => {
     medicationModal.hidden = true;
 });
 
+// Ajout d'un médicament
 // Ajout d'un médicament
 addMedication.addEventListener('click', () => {
     const row = document.createElement('tr');
@@ -334,6 +515,9 @@ addMedication.addEventListener('click', () => {
     medicationTable.appendChild(row);
     updateNoMedicationsMessage();
     toggleDeleteButtonVisibility();
+
+    const nameInput = row.querySelector('td:nth-child(2) input');
+    createMedicationSuggestionsInput(nameInput); // Ajouter les suggestions pour le nom du médicament
 
     const addReminderTimeButton = row.querySelector('.addReminderTime');
     const reminderTimesContainer = row.querySelector('.reminderTimes');
@@ -366,34 +550,80 @@ addMedication.addEventListener('click', () => {
     updateConfirmButtonState();
 });
 
+function sendEmailWithICSLink(medicationData) {
+    fetch('http://localhost:3001/create-ics', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            medicationData: medicationData,
+            recipientEmail: 'salmon.hugo69330@gmail.com', // Remplacez par l'adresse email de destination
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            notyf.success('Email avec le lien ICS envoyé avec succès.');
+        } else {
+            notyf.error('Erreur lors de l\'envoi de l\'email avec le lien ICS.');
+        }
+    })
+    .catch(error => console.error('Erreur lors de l\'envoi de l\'email avec le lien ICS :', error));
+}
+
+
 // Confirmation et récapitulatif des médicaments
 confirmMedications.addEventListener('click', () => {
     const rows = medicationTable.querySelectorAll('tr');
     const medicationData = [];
+    const today = new Date().toISOString().split('T')[0];
+    let hasInvalidDate = false;
 
     rows.forEach(row => {
         const inputs = row.querySelectorAll('input');
         const reminderTimes = Array.from(row.querySelectorAll('.reminderTimes input')).map(input => input.value);
 
+        // Récupération de la date de fin depuis l'input de type date
+        const endDateInput = row.querySelector('input[type="date"]');
+        const endDate = endDateInput ? endDateInput.value : ''; 
+
+        // Vérifier que la date de fin est supérieure ou égale à aujourd'hui
+        if (endDate && endDate < today) {
+            hasInvalidDate = true;
+        }
+
+        // Récupération des notes depuis leur champ dédié
+        const notesInput = row.querySelector('input[placeholder="Notes"]');
+        const notes = notesInput ? notesInput.value : ''; 
+
         const data = {
             name: inputs[1].value,
             dosage: inputs[2].value,
             reminderTimes: reminderTimes,
-            endDate: inputs[4].value,
-            notes: inputs[5].value
+            endDate: endDate,
+            notes: notes
         };
+
         medicationData.push(data);
     });
 
+    if (hasInvalidDate) {
+        notyf.error('La date de fin doit être supérieure ou égale à aujourd\'hui.');
+        return; // Arrêter la sauvegarde si une date est invalide
+    }
+
+    saveRecap(medicationData);
     updateRecapTable(medicationData);
     medicationModal.hidden = true;
-    fileInput.value = '';
-    fileInfo.textContent = 'Aucun fichier sélectionné.';
     updateNoMedicationsMessage();
+    sendEmailWithICSLink(medicationData);
 });
+
 
 function updateRecapTable(medicationData) {
     recapTable.innerHTML = '';
+    const isSingleMedication = medicationData.length === 1;
     medicationData.forEach((med, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -418,10 +648,16 @@ function updateRecapTable(medicationData) {
                 <button class="editRecapRow">Modifier</button>
                 <button class="cancelRecapRow" style="display: none;">Annuler</button>
                 <button class="saveRecapRow" style="display: none; opacity: 0.6;" disabled>Sauvegarder</button>
-                <button class="deleteRecapRow">Supprimer</button>
+                <button class="deleteRecapRow" ${isSingleMedication ? 'disabled' : ''}>
+                    Supprimer
+                    ${isSingleMedication ? '<i class="tooltip-icon" title="Impossible de supprimer le seul médicament.">i</i>' : ''}
+                </button>
             </td>
         `;
         recapTable.appendChild(row);
+
+        const nameInput = row.querySelector('td:nth-child(1) input');
+        createMedicationSuggestionsInput(nameInput); // Ajouter les suggestions pour le nom du médicament
 
         const editButton = row.querySelector('.editRecapRow');
         const cancelButton = row.querySelector('.cancelRecapRow');
@@ -490,23 +726,74 @@ function updateRecapTable(medicationData) {
         }
 
         // Fonction pour mettre à jour l'état du bouton Sauvegarder
+        // Fonction pour mettre à jour l'état du bouton Sauvegarder
         function updateSaveButtonState() {
-            saveButton.disabled = !hasChanges;
-            saveButton.style.opacity = hasChanges ? '1' : '0.6';
+            const nameInput = row.querySelector('td:nth-child(1) input');
+            const dosageInput = row.querySelector('td:nth-child(2) input');
+            const endDateInput = row.querySelector('td:nth-child(4) input');
+            const reminderInputs = row.querySelectorAll('.reminderTimes input[type="time"]');
+        
+            // Vérifier que tous les champs obligatoires sont remplis (sauf les notes)
+            let allFieldsValid = true;
+        
+            // Vérifier le nom
+            if (!nameInput.value.trim()) {
+                allFieldsValid = false;
+            }
+        
+            // Vérifier le dosage
+            if (!dosageInput.value.trim()) {
+                allFieldsValid = false;
+            }
+        
+            // Vérifier la date de fin
+            if (!endDateInput.value.trim()) {
+                allFieldsValid = false;
+            }
+        
+            // Vérifier qu'il y a au moins une heure de rappel
+            if (reminderInputs.length === 0) {
+                allFieldsValid = false;
+            } else {
+                // Vérifier que toutes les heures de rappel sont remplies
+                reminderInputs.forEach(input => {
+                    if (!input.value) {
+                        allFieldsValid = false;
+                    }
+                });
+            }
+        
+            // Activer le bouton Sauvegarder seulement si tous les champs obligatoires sont remplis et s'il y a des modifications
+            saveButton.disabled = !hasChanges || !allFieldsValid;
+            saveButton.style.opacity = (hasChanges && allFieldsValid) ? '1' : '0.6';
         }
+        
 
+        
+
+        // Fonction pour détecter les changements
         // Fonction pour détecter les changements
         function detectChanges() {
             const currentState = {
                 name: row.querySelector('td:nth-child(1) input').value,
                 dosage: row.querySelector('td:nth-child(2) input').value,
                 endDate: row.querySelector('td:nth-child(4) input').value,
-                notes: row.querySelector('td:nth-child(5) input').value,
-                reminderTimes: Array.from(reminderTimesContainer.querySelectorAll('input[type="time"]')).map(input => input.value)
+                reminderTimes: Array.from(row.querySelectorAll('.reminderTimes input[type="time"]')).map(input => input.value)
             };
-            hasChanges = JSON.stringify(currentState) !== JSON.stringify(originalState);
+        
+            const originalStateWithoutNotes = {
+                name: originalState.name,
+                dosage: originalState.dosage,
+                endDate: originalState.endDate,
+                reminderTimes: originalState.reminderTimes
+            };
+        
+            // Comparer les états sans inclure les notes
+            hasChanges = JSON.stringify(currentState) !== JSON.stringify(originalStateWithoutNotes);
             updateSaveButtonState();
         }
+        
+
 
         // Gérer le mode édition
         editButton.addEventListener('click', () => {
@@ -534,10 +821,18 @@ function updateRecapTable(medicationData) {
             saveButton.style.display = 'none';
             editButton.style.display = 'inline-block';
             deleteButton.style.display = 'inline-block';
+            notyf.success('Modifications annulées.');
         });
 
         // Gérer la sauvegarde
         saveButton.addEventListener('click', () => {
+            const today = new Date().toISOString().split('T')[0];
+            const endDateInput = row.querySelector('td:nth-child(4) input');
+            if (endDateInput && endDateInput.value < today) {
+                notyf.error('La date de fin doit être supérieure ou égale à aujourd\'hui.');
+                return; // Arrêter la sauvegarde si la date est invalide
+            }
+        
             row.querySelectorAll('.recapField').forEach(input => input.readOnly = true);
             addReminderTimeButton.style.display = 'none';
             reminderTimesContainer.querySelectorAll('.removeTimeIcon').forEach(icon => icon.style.display = 'none');
@@ -546,7 +841,11 @@ function updateRecapTable(medicationData) {
             editButton.style.display = 'inline-block';
             deleteButton.style.display = 'inline-block';
             saveOriginalState();
+            const updatedData = getCurrentRecapData();
+            saveRecap(updatedData); // Sauvegarde les données et envoie le mail avec les données mises à jour
+            notyf.success('Médicament modifié avec succès.');
         });
+        
 
         // Gérer l'ajout d'heures de rappel
         addReminderTimeButton.addEventListener('click', () => {
@@ -576,7 +875,9 @@ function updateRecapTable(medicationData) {
         // Gérer la suppression de la ligne
         deleteButton.addEventListener('click', () => {
             row.remove();
+            saveRecap(getCurrentRecapData());
             updateRecapContainerVisibility();
+            notyf.success('Médicament supprimé du récapitulatif.');
         });
 
         updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
@@ -584,6 +885,7 @@ function updateRecapTable(medicationData) {
 
     updateRecapContainerVisibility();
 }
+
 
 
 

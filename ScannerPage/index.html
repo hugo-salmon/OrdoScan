@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Extraction de texte avec Google Vision</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf/notyf.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <script src="../config.js" defer></script>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="script.js" defer></script>
   <script src="../trad.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
@@ -16,10 +18,10 @@
     <div class="navbar-content">
       <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo" class="logo">
       <nav class="nav-links">
-        <a href="/"><i class="fas fa-upload"></i> Téléverser</a>
-        <a href="/"><i class="fas fa-pills"></i> Mes Médicaments</a>
-        <a href="/"><i class="fas fa-history"></i> Historique</a>
-        <a href="/"><i class="fas fa-cog"></i> Paramètres</a>
+        <a href="#"><i class="fas fa-upload"></i> Téléverser</a>
+        <a href="#"><i class="fas fa-pills"></i> Médicaments</a>
+        <a href="#"><i class="fas fa-history"></i> Historique</a>
+        <a href="#"><i class="fas fa-cog"></i> Paramètres</a>
         <select id="langue">
           <option value="FR"><span class="flag-icon flag-icon-fr">FR</span></option>
           <option value="EN"><span class="flag-icon flag-icon-gb">EN</span></option>
@@ -46,13 +48,15 @@
   
   <main>
     <div class="dropzone" id="dropzone">
-      <p>Glissez-déposez une image ici ou cliquez pour sélectionner un fichier</p>
+      <p>Glissez-déposez une image ici ou cliquez pour sélectionner une ordonnance</p>
       <input type="file" id="fileInput" accept=".png, .jpeg" hidden />
     </div>
+    
     <div id="previewContainer">
+      <h3 id="preview-title">Aperçu de l'ordonnance</h3>
       <div class="preview-header">
-        <p id="previewName"></p>
-        <button id="removePreview">Supprimer l'aperçu</button>
+        <p id="fileInfo">Aucun fichier sélectionné.</p> <!-- Mettre à jour ici -->
+        <button id="removePreview">Supprimer l'ordonnance</button>
       </div>
       <div class="preview-box">
         <div class="zoom-controls">
@@ -70,7 +74,7 @@
     
     
     
-    <p id="fileInfo">Aucun fichier sélectionné.</p>
+
     <div id="loader" class="loader" hidden></div>
 
     <!-- Message "Aucun médicament présent" -->
@@ -82,10 +86,10 @@
       <table id="recapTable">
         <thead>
           <tr>
-            <th>Médicament</th>
-            <th>Dosage</th>
-            <th>Heures de rappel</th>
-            <th>Date de fin</th>
+            <th>Médicament*</th>
+            <th>Dosage*</th>
+            <th>Heure(s) de rappel*</th>
+            <th>Date de fin du traitement*</th>
             <th>Notes</th>
             <th>Actions</th>
           </tr>
@@ -94,6 +98,7 @@
           <!-- Les lignes de récapitulatif des médicaments seront ajoutées ici via JavaScript -->
         </tbody>
       </table>
+      <button id="addNewMedication" style="margin-top: 10px;">Ajouter un médicament</button>
     </div>
 
     <!-- Modale pour la vérification et la modification des médicaments -->
@@ -105,10 +110,10 @@
           <thead>
             <tr>
               <th><input type="checkbox" id="selectAll" /></th>
-              <th>Médicament</th>
-              <th>Dosage</th>
-              <th>Heures de rappel</th>
-              <th>Date de fin</th>
+              <th>Médicament*</th>
+              <th>Dosage*</th>
+              <th>Heure(s) de rappel*</th>
+              <th>Date de fin du traitement*</th>
               <th>Notes</th>
             </tr>
           </thead>
