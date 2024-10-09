@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extraction de texte avec Google Vision</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo" class="logo">
+      <nav class="nav-links">
+        <a href="/"><i class="fas fa-upload"></i> Téléverser</a>
+        <a href="/"><i class="fas fa-pills"></i> Mes Médicaments</a>
+        <a href="/"><i class="fas fa-history"></i> Historique</a>
+        <a href="/"><i class="fas fa-cog"></i> Paramètres</a>
+      </nav>
+      <div class="user-menu">
+        <img src="../assets/logo ol.svg" alt="Avatar" class="avatar">
+        <div class="dropdown">
+          <button class="dropdown-btn">Hugo SALMON</button>
+          <div class="dropdown-content">
+            <a href="#profile">Profil</a>
+            <a href="#switch-account">Changer de compte</a>
+            <a href="#logout">Déconnexion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <div class="dropzone" id="dropzone">
+      <p>Glissez-déposez une image ici ou cliquez pour sélectionner un fichier</p>
+      <input type="file" id="fileInput" accept=".png, .jpeg" hidden />
+    </div>
+    <p id="fileInfo">Aucun fichier sélectionné.</p>
+    <div id="loader" class="loader" hidden></div>
+
+    <!-- Message "Aucun médicament présent" -->
+    <p id="noMedicationsMessage" style="display: none; text-align: center; color: #666;">Aucun médicament présent</p>
+
+    <!-- Récapitulatif des médicaments après confirmation -->
+    <div id="recapContainer" style="display: none;">
+      <h3>Récapitulatif des Médicaments</h3>
+      <table id="recapTable">
+        <thead>
+          <tr>
+            <th>Médicament</th>
+            <th>Dosage</th>
+            <th>Récurrence</th>
+            <th>Date de fin</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les lignes de récapitulatif des médicaments seront ajoutées ici via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modale pour la vérification et la modification des médicaments -->
+    <div id="medicationModal" class="modal" hidden>
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Vérification des Médicaments</h2>
+        <table id="medicationTable">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll" /></th>
+              <th>Médicament</th>
+              <th>Dosage</th>
+              <th>Récurrence</th>
+              <th>Date de fin</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les lignes des médicaments seront ajoutées ici via JavaScript -->
+          </tbody>
+        </table>
+        <p id="noResultsMessage" style="display: none; text-align: center; color: #666;">Aucun résultat</p>
+        <div class="modal-buttons">
+          <button id="deleteSelected" style="display: none;">Supprimer les sélectionnés</button>
+          <button id="addMedication">Ajouter un médicament</button>
+          <button id="confirmMedications">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 - Extraction de texte avec Google Vision</p>
+  </footer>
+</body>
+</html>
