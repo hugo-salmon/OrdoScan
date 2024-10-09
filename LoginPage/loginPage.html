@@ -24,11 +24,19 @@
             <div id="logo-connexion-row">
                 <img src="logo.png"  alt="Logo OrdoScan" id="logo">
                 <h2>Connexion</h2>
+                <script>
+                    const onClickContainer = document.getElementById("container-login");
+                    onClickContainer.onclick= 
+                () => window.location.replace("index.html");
+                </script>
             </div>
         </div>
     </div>
     <footer>
         <p>© 2024 OrdoScan. Tous droits réservés.</p>
+        <a href="../Legal/legal.html" id="legal-href">
+           <p id="p-legal">legal</p> 
+        </a>
     </footer>
 </body>
 </html>

@@ -82,9 +82,26 @@ footer {
     bottom: 0;
     width: 100%;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 #logo-app{
     height: 130px;
     align-items: center;
     justify-content: center;
+}
+
+#legal-href{
+    color: white;
+    margin-left: 10%;
+    text-decoration: none;
+}
+
+#p-legal{
+    color: white;
+}
+#legal-href:hover {
+    text-decoration: underline;
 }
