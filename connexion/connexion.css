@@ -98,6 +98,16 @@ footer {
     margin-left: 10%;
     text-decoration: none;
 }
+#politique-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
+#cgu-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
 
 #p-legal{
     color: white;
