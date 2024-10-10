@@ -584,7 +584,7 @@ function sendEmailWithICSLink(medicationData) {
     },
     body: JSON.stringify({
         medicationData: medicationData,
-        recipientEmail: 'salmon.hugo69330@gmail.com', 
+        recipientEmail: 'salmon.hugo@icloud.com', 
     }),
 })
 .then(response => response.json())
