@@ -265,11 +265,11 @@ function populateMedicationTable(medications) {
         <td><input type="text" value="${med}" placeholder="Nom du médicament" class="requiredField"></td>
         <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
         <td>
-        <div class="recurrence">
-        <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
-        <div class="reminderTimes"></div>
-        <button type="button" class="addReminderTime">Ajouter une heure</button>
-        </div>
+          <div class="recurrence">
+            <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
+            <div class="reminderTimes"></div>
+            <button type="button" class="addReminderTime">Ajouter une heure</button>
+          </div>
         </td>
         <td><input type="number" placeholder="Récurrence (jours)" class="requiredField" min="1" value="1"></td>
         <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
@@ -281,7 +281,6 @@ function populateMedicationTable(medications) {
         createMedicationSuggestionsInput(nameInput);
         
         const recurrenceInput = row.querySelector('input[type="number"]');
-        
         recurrenceInput.addEventListener('input', () => {
             updateConfirmButtonState();
         });
@@ -319,36 +318,34 @@ function populateMedicationTable(medications) {
         });
         
         updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
-        
-        row.querySelectorAll('.requiredField').forEach(input => {
-            input.addEventListener('input', updateConfirmButtonState);
-        });
     });
     updateNoMedicationsMessage();
     toggleDeleteButtonVisibility();
 }
 
+
 function updateConfirmButtonState() {
     const rows = medicationTable.querySelectorAll('tr');
     let allFieldsValid = true;
-    
+
     rows.forEach(row => {
-        const requiredFields = row.querySelectorAll('.requiredField:not([placeholder="Notes"])'); 
+        const requiredFields = row.querySelectorAll('.requiredField:not([placeholder="Notes"])');
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 allFieldsValid = false;
             }
         });
-        
+
         const recurrence = row.querySelector('input[type="number"]');
         if (!recurrence.value || parseInt(recurrence.value, 10) <= 0) {
             allFieldsValid = false;
         }
     });
-    
+
     confirmMedications.disabled = !allFieldsValid;
     confirmMedications.style.opacity = allFieldsValid ? '1' : '0.6';
 }
+
 
 
 
@@ -530,51 +527,54 @@ addMedication.addEventListener('click', () => {
     <td><input type="text" placeholder="Nom du médicament" class="requiredField"></td>
     <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
     <td>
-    <div class="recurrence">
-    <div class="reminderTimes"></div>
-    <button type="button" class="addReminderTime">Ajouter une heure</button>
-    </div>
+        <div class="recurrence">
+            <div class="reminderTimes"></div>
+            <button type="button" class="addReminderTime">Ajouter une heure</button>
+        </div>
     </td>
+    <td><input type="number" placeholder="Récurrence (jours)" class="requiredField" min="1" value="1"></td>
     <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
     <td><input type="text" placeholder="Notes"></td>
     `;
     medicationTable.appendChild(row);
     updateNoMedicationsMessage();
     toggleDeleteButtonVisibility();
-    
+
     const nameInput = row.querySelector('td:nth-child(2) input');
     createMedicationSuggestionsInput(nameInput); 
-    
+
     const addReminderTimeButton = row.querySelector('.addReminderTime');
     const reminderTimesContainer = row.querySelector('.reminderTimes');
     
     addReminderTimeButton.addEventListener('click', () => {
         const timeContainer = document.createElement('div');
         timeContainer.classList.add('reminderTimeItem');
-        
+
         const timeInput = document.createElement('input');
         timeInput.type = 'time';
         timeInput.classList.add('requiredField');
-        
+
         const removeIcon = document.createElement('i');
         removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
         removeIcon.addEventListener('click', () => {
             timeContainer.remove();
             updateConfirmButtonState();
         });
-        
+
         timeContainer.appendChild(timeInput);
         timeContainer.appendChild(removeIcon);
         reminderTimesContainer.appendChild(timeContainer);
-        
+
         timeInput.addEventListener('input', updateConfirmButtonState);
     });
-    
+
     row.querySelectorAll('.requiredField').forEach(input => {
         input.addEventListener('input', updateConfirmButtonState);
     });
+
     updateConfirmButtonState();
 });
+
 
 function sendEmailWithICSLink(medicationData) {
     fetch('http://localhost:3001/create-ics', {

@@ -257,8 +257,8 @@ main {
   padding: 20px;
   border-radius: 8px;
   width: 80%;
-  max-width: 800px;
-  max-height: 60vh; 
+  max-width: 1200px;
+  max-height: 80vh; 
   overflow-y: auto; 
   position: relative;
 }

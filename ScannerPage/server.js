@@ -12,41 +12,43 @@ app.use(bodyParser.json());
 
 function generateICS(medicationData) {
     let icsContent = `BEGIN:VCALENDAR
-    VERSION:2.0
-    CALSCALE:GREGORIAN`;
-    
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:-//OrdoScan//FR`;
+
     medicationData.forEach(med => {
         const { name, reminderTimes, endDate, recurrence } = med;
-        
+
         reminderTimes.forEach(time => {
             const [hours, minutes] = time.split(':');
             const eventStart = new Date();
             eventStart.setHours(hours);
             eventStart.setMinutes(minutes);
             eventStart.setSeconds(0);
-            
-            const startTime = formatDateToICS(eventStart);
-            
+
+            const startTime = formatDateToICS(eventStart) 
+
             const endDateObj = new Date(endDate);
-            endDateObj.setHours(23, 59, 59);
-            const endDateFormatted = formatDateToICS(endDateObj);
-            
+            endDateObj.setHours(23, 59, 59); // Fin de la journée
+            const endDateFormatted = formatDateToICS(endDateObj)
+
             icsContent += `
-            BEGIN:VEVENT
-            SUMMARY:Rappel - ${name}
-            DTSTART:${startTime}
-            DTEND:${startTime}
-            RRULE:FREQ=DAILY;INTERVAL=${recurrence};UNTIL=${endDateFormatted}
-            DESCRIPTION:Rappel pour prendre le médicament ${name} à ${time}.
-            END:VEVENT`;
+BEGIN:VEVENT
+SUMMARY:Rappel - ${name}
+DTSTART:${startTime}
+DTEND:${startTime}
+RRULE:FREQ=DAILY;INTERVAL=${recurrence};UNTIL=${endDateFormatted}
+DESCRIPTION:Rappel pour prendre le médicament ${name} à ${time}.
+END:VEVENT`;
         });
     });
-    
+
     icsContent += `
-    END:VCALENDAR`;
-    
+END:VCALENDAR`;
+
     return icsContent;
 }
+
 
 
 
@@ -59,6 +61,7 @@ function formatDateToICS(date) {
     const seconds = String(date.getSeconds()).padStart(2, '0');
     return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 }
+
 
 app.post('/create-ics', (req, res) => {
     const { medicationData, recipientEmail } = req.body;
