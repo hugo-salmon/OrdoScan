@@ -49,18 +49,21 @@
       <h1 class="title">Liste des Médicaments</h1>
       
       <div class="search-container">
-        <input type="text" id="search" placeholder="Rechercher par substance active" class="search-input">
+        <input type="text" id="search" placeholder="Rechercher par Nom" class="search-input">
         <button onclick="searchMedicaments()" class="search-btn">Rechercher</button>
+      </div>
+      
+      <!-- Barre de progression ajoutée ici -->
+      <div id="progress-container" class="progress-container">
+        <progress id="progress-bar" value="0" max="100"></progress>
       </div>
       
       <div id="medicaments" class="medicaments-list"></div>
       
       <script src="médicament.js"></script>
     </div>
-    
-    
-    
   </main>
+  
 
   <footer class="footer">
     <p>&copy; 2024 - Extraction de texte avec Google Vision</p>

@@ -1,7 +1,7 @@
 async function fetchMedicaments(query = '') {
     const url = query 
         ? `https://api.fda.gov/drug/label.json?limit=20&search=openfda.manufacturer_name:${query}`
-        : 'https://api.fda.gov/drug/label.json?limit=150';
+        : 'https://api.fda.gov/drug/label.json?limit=300';
     const response = await fetch(url);
     const data = await response.json();
     const medicamentsDiv = document.getElementById('medicaments');
@@ -45,3 +45,31 @@ function searchMedicaments() {
 }
 
 fetchMedicaments();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    
+    function loadMedicaments() {
+      progressContainer.style.visibility = 'visible'; 
+      let progressValue = 0;
+  
+      const interval = setInterval(() => {
+        if (progressValue < 100) {
+          progressValue += 10; 
+          progressBar.value = progressValue;
+        } else {
+          clearInterval(interval);
+          progressContainer.style.visibility = 'hidden'; 
+          displayMedicaments(); 
+        }
+      }, 1080); 
+    }
+  
+    function displayMedicaments() {
+       
+      //document.getElementById('medicaments').innerHTML = '<p>Médicaments chargés !</p>';
+    }
+    loadMedicaments();
+  });
+  

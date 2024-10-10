@@ -54,37 +54,73 @@
     background-color: #007acc;
   }
   
-  /* Liste des médicaments */
-  .medicaments-list {
+/* Liste des médicaments */
+.medicaments-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-  }
-  
-  .medicament {
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    gap: 40px; /* Réduction de l'écart pour une meilleure disposition */
+    padding: 20px;
+}
+
+/* Style pour chaque élément de médicament */
+.medicament {
+    padding: 20px;
+    background-color: #f9f9f9; /* Couleur de fond plus douce */
+    border-radius: 12px; /* Coins légèrement arrondis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre plus douce */
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .medicament h3 {
-    margin: 0;
-    font-size: 20px;
-    color: #333;
-  }
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  #médicament-collumn{
+.medicament:hover {
+    transform: translateY(-5px); /* Léger effet de levée lors du survol */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Accentue l'ombre au survol */
+}
+
+/* Titre du médicament */
+.medicament h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Texte de description */
+.medicament p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Utilisation du médicament */
+.medicament p strong {
+    color: #2c3e50;
+}
+
+/* Colonne pour les informations du médicament */
+#médicament-collumn {
     display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 3%;
-  margin-right: 3%;
-  }
-  
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+    width: 70%;
+}
+
+/* Alignement et mise en forme des descriptions */
+.description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #95a5a6;
+}
+
+/* Espacement supplémentaire en haut */
+.medicament + .medicament {
+    margin-top: 20px;
+}
+
   .description {
     color: #777;
     font-size: 14px;
@@ -479,25 +515,64 @@ body {
     text-decoration: underline;
 }
   
-/* Style pour la barre de progression */
+/* Conteneur de la barre de progression */
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    visibility: hidden; /* Par défaut, la barre est cachée */
+}
+
+/* Style de la barre de progression */
 progress {
-    width: 100%;
+    width: 50%; /* Ajuste la largeur selon tes besoins */
     height: 20px;
     -webkit-appearance: none;
     appearance: none;
 }
 
 progress::-webkit-progress-bar {
-    background-color: #f3f3f3; /* Couleur de fond */
+    background-color: #f3f3f3;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc inset;
 }
 
 progress::-webkit-progress-value {
-    background-color: #4caf50; /* Couleur de la progression */
+    background-color: #4caf50;
     border-radius: 10px;
 }
 
 progress::-moz-progress-bar {
-    background-color: #4caf50; /* Couleur de la progression pour Firefox */
+    background-color: #4caf50;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
