@@ -49,11 +49,14 @@
       <h1 class="title">Liste des Médicaments</h1>
       
       <div class="search-container">
-        <input type="text" id="search" placeholder="Rechercher par Nom" class="search-input">
-        <button onclick="searchMedicaments()" class="search-btn">Rechercher</button>
-      </div>
+  <div class="search-wrapper">
+    <input type="text" id="search" placeholder="Rechercher par Nom" class="search-input">
+    <span class="clear-icon" id="clearSearch" style="display: none;">&#x2715;</span>
+  </div>
+  <button onclick="searchMedicaments()" class="search-btn">Rechercher</button>
+</div>
+
       
-      <!-- Barre de progression ajoutée ici -->
       <div id="progress-container" class="progress-container">
         <progress id="progress-bar" value="0" max="100"></progress>
       </div>
