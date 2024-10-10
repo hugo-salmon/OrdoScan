@@ -78,7 +78,7 @@ footer {
     color: white;
     text-align: center;
     padding: 15px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     font-family: 'Roboto', sans-serif;
@@ -86,7 +86,7 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-}
+  }
 #logo-app{
     height: 130px;
     align-items: center;

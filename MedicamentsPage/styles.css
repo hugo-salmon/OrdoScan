@@ -1,0 +1,394 @@
+
+#container-medico {
+  width: 80%; /* Définit une largeur constante */
+  max-width: 1200px; /* Largeur maximale pour les grands écrans */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  transition: width 0.3s ease; /* Transition pour rendre le changement de largeur plus fluide */
+}
+
+  
+  /* Titre */
+  .title {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* Barre de recherche */
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .search-input {
+    width: 60%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .search-input:focus {
+    border-color: #00aaff;
+  }
+  
+  .search-btn {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .search-btn:hover {
+    background-color: #007acc;
+  }
+  
+/* Liste des médicaments */
+.medicaments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Réduction de l'écart pour une meilleure disposition */
+    padding: 20px;
+}
+
+/* Style pour chaque élément de médicament */
+.medicament {
+    padding: 20px;
+    background-color: #f9f9f9; /* Couleur de fond plus douce */
+    border-radius: 12px; /* Coins légèrement arrondis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre plus douce */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.medicament:hover {
+    transform: translateY(-5px); /* Léger effet de levée lors du survol */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Accentue l'ombre au survol */
+}
+
+/* Titre du médicament */
+.medicament h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Texte de description */
+.medicament p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Utilisation du médicament */
+.medicament p strong {
+    color: #2c3e50;
+}
+
+/* Colonne pour les informations du médicament */
+#médicament-collumn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+    width: 70%;
+}
+
+/* Alignement et mise en forme des descriptions */
+.description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #95a5a6;
+}
+
+/* Espacement supplémentaire en haut */
+.medicament + .medicament {
+    margin-top: 20px;
+}
+
+  .description {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  button.medicament-btn {
+    background-color: #ff4747;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button.medicament-btn:hover {
+    background-color: #e63939;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header, footer {
+    flex-shrink: 0;
+  }
+  
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .navbar {
+    background-color: #0E7ACA;
+    color: white;
+  }
+  
+  .navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    height: 80px;
+    margin-right: 1rem;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .nav-links select {
+    background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-links select:hover {
+    background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+  }
+  
+  .nav-links select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-links a i {
+    margin-right: 8px;
+  }
+  
+  .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-menu .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #357ABD;
+  }
+  
+  .user-menu .dropdown {
+    position: relative;
+  }
+  
+  .user-menu .dropdown-btn {
+    background: #357ABD;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-menu .dropdown-btn:hover {
+    background: #2a5a8d;
+  }
+  
+  .user-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    right: 0;
+    margin-top: 10px;
+    min-width: 150px;
+    z-index: 10;
+  }
+  
+  .user-menu .dropdown.open .dropdown-content {
+    display: block;
+  }
+  
+  
+  .user-menu .dropdown-content a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-menu .dropdown-content a:hover {
+    background: #f0f0f0;
+  }
+  
+  .user-menu .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Ajout d'une icône de flèche pour le bouton du dropdown */
+  .user-menu .dropdown-btn::after {
+    content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 5px;
+  }
+  
+  .footer {
+    background-color: #0E7ACA;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .dropzone {
+    border: 2px dashed #0E7ACA;
+    background-color: #e6f2ff;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 2rem auto;
+    border-radius: 8px;
+    max-width: 500px;
+    transition: background-color 0.3s;
+  }
+  
+  .dropzone:hover {
+    background-color: #cde6ff;
+  }
+  
+  #fileInfo {
+    margin-top: 0.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  #legal-href{
+    color: white;
+    margin-left: 10%;
+    text-decoration: none;
+}
+#politique-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
+#cgu-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
+
+#p-legal{
+    color: white;
+}
+#legal-href:hover {
+    text-decoration: underline;
+}
+  
+/* Conteneur de la barre de progression */
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    visibility: hidden; /* Par défaut, la barre est cachée */
+}
+
+/* Style de la barre de progression */
+progress {
+    width: 50%; /* Ajuste la largeur selon tes besoins */
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc inset;
+}
+
+progress::-webkit-progress-value {
+    background-color: #4caf50;
+    border-radius: 10px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #4caf50;
+}
+
