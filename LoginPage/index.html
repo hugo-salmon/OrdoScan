@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -9,39 +9,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@500&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='script.js'></script>
+    <script src='script.js' defer></script>
 </head>
 <body>
     <div id="body-content">
         <div id="title-h1">
             <h1>Connexion</h1>
         </div>
-        <div id="container-login">
+        <div id="container-login" onclick="window.location.replace('../ScannerPage/index.html')">
             <div id="logo-app-connection">
-                <img src="logo.webp" alt="Logo OrdoScan" id="logo-app">
+                <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo OrdoScan" id="logo-app">
             </div>
             <div id="logo-connexion-row">
-                <img src="logo.png"  alt="Logo OrdoScan" id="logo">
-                <h2>Connexion</h2>
-                <script>
-                    const onClickContainer = document.getElementById("container-login");
-                    onClickContainer.onclick= 
-                () => window.location.replace("../ScannerPage/index.html");
-                </script>
+                <img src="../assets/logo doctolib.png" alt="Logo Doctolib" id="logo">
+                <h2>Se connecter avec Doctolib</h2>
             </div>
         </div>
     </div>
     <footer class="footer">
         <p>&copy; 2024 - Extraction de texte avec Google Vision</p>
-        <a href="../LegalNoticePage/index.html" id="legal-href" target="_blank">
-          <p id="p-legal">Mentions légales</p> 
-       </a>
-       <a href="../CguPage/index.html" id="cgu-href" target="_blank">
-          <p id="p-legal">Conditions Générales</p> 
-       </a>
-       <a href="../PrivacyPolicyPage/index.html" id="politique-href" target="_blank">
-          <p id="p-legal">Politique de confidentialité</p> 
-       </a>
-      </footer>
+        <a href="../LegalNoticePage/index.html" id="legal-href" target="_blank">Mentions légales</a>
+        <a href="../CguPage/index.html" id="cgu-href" target="_blank">Conditions Générales</a>
+        <a href="../PrivacyPolicyPage/index.html" id="politique-href" target="_blank">Politique de confidentialité</a>
+    </footer>
 </body>
 </html>

@@ -15,42 +15,42 @@ app.use(bodyParser.json());
 // Fonction pour générer le fichier .ics avec la récence
 function generateICS(medicationData) {
     let icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-CALSCALE:GREGORIAN`;
-
+    VERSION:2.0
+    CALSCALE:GREGORIAN`;
+    
     medicationData.forEach(med => {
         const { name, reminderTimes, endDate, recurrence } = med;
-
+        
         reminderTimes.forEach(time => {
             const [hours, minutes] = time.split(':');
             const eventStart = new Date();
             eventStart.setHours(hours);
             eventStart.setMinutes(minutes);
             eventStart.setSeconds(0);
-
+            
             // Format de la date et de l'heure pour l'événement (YYYYMMDDTHHMMSS)
             const startTime = formatDateToICS(eventStart);
-
+            
             // Ajouter la date de fin pour la règle de récurrence
             const endDateObj = new Date(endDate);
             endDateObj.setHours(23, 59, 59);
             const endDateFormatted = formatDateToICS(endDateObj);
-
+            
             // Inclure la règle de récurrence en fonction de la récence
             icsContent += `
-BEGIN:VEVENT
-SUMMARY:Rappel - ${name}
-DTSTART:${startTime}
-DTEND:${startTime}
-RRULE:FREQ=DAILY;INTERVAL=${recurrence};UNTIL=${endDateFormatted}
-DESCRIPTION:Rappel pour prendre le médicament ${name} à ${time}.
-END:VEVENT`;
+            BEGIN:VEVENT
+            SUMMARY:Rappel - ${name}
+            DTSTART:${startTime}
+            DTEND:${startTime}
+            RRULE:FREQ=DAILY;INTERVAL=${recurrence};UNTIL=${endDateFormatted}
+            DESCRIPTION:Rappel pour prendre le médicament ${name} à ${time}.
+            END:VEVENT`;
         });
     });
-
+    
     icsContent += `
-END:VCALENDAR`;
-
+    END:VCALENDAR`;
+    
     return icsContent;
 }
 
@@ -70,13 +70,13 @@ app.post('/create-ics', (req, res) => {
     const { medicationData, recipientEmail } = req.body;
     const icsContent = generateICS(medicationData);
     const filePath = path.join(__dirname, 'rappels_medication.ics');
-
+    
     fs.writeFile(filePath, icsContent, (err) => {
         if (err) {
             console.error('Erreur lors de la création du fichier .ics :', err);
             return res.status(500).send({ message: 'Erreur lors de la création du fichier .ics' });
         }
-
+        
         const icsUrl = `http://localhost:${port}/download/rappels_medication.ics`;
         sendEmailWithICS(recipientEmail, icsUrl, medicationData, res); // On passe les données des médicaments ici.
     });
@@ -91,31 +91,31 @@ function sendEmailWithICS(email, icsUrl, medicationData, res) {
             pass: 'cleu fufd ghyc xmad',
         },
     });
-
+    
     // Construire le contenu de l'email avec les détails des médicaments, y compris la récurrence
     let emailContent = `Bonjour,\n\nVous trouverez ci-dessous les détails de vos médicaments et leurs rappels :\n\n`;
-
+    
     medicationData.forEach((med, index) => {
         emailContent += `Médicament ${index + 1} :
-- Nom : ${med.name}
-- Dosage : ${med.dosage || 'Non spécifié'}
-- Heures de rappel : ${med.reminderTimes.length > 0 ? med.reminderTimes.join(', ') : 'Aucune heure de rappel spécifiée'}
-- Récurrence : Tous les ${med.recurrence} jour(s)
-- Date de fin : ${med.endDate || 'Non spécifiée'}
-- Notes : ${med.notes || 'Aucune note spécifiée'}
-
-`;
+        - Nom : ${med.name}
+        - Dosage : ${med.dosage || 'Non spécifié'}
+        - Heures de rappel : ${med.reminderTimes.length > 0 ? med.reminderTimes.join(', ') : 'Aucune heure de rappel spécifiée'}
+        - Récurrence : Tous les ${med.recurrence} jour(s)
+        - Date de fin : ${med.endDate || 'Non spécifiée'}
+        - Notes : ${med.notes || 'Aucune note spécifiée'}
+        
+        `;
     });
-
+    
     emailContent += `\nVous pouvez télécharger votre fichier de rappel pour les médicaments via le lien suivant : ${icsUrl}\n\nCordialement,\nL'équipe OrdoScan`;
-
+    
     const mailOptions = {
         from: 'salmon.hugo69330@gmail.com',
         to: email,
         subject: 'Récapitulatif de vos médicaments - Téléchargez votre fichier de rappel',
         text: emailContent,
     };
-
+    
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Erreur lors de l\'envoi de l\'email :', error);

@@ -6,15 +6,15 @@ let dropdownTimeout;
 
 // Afficher le menu lorsque la souris survole le bouton ou le contenu
 dropdown.addEventListener('mouseenter', () => {
-  clearTimeout(dropdownTimeout); // Annule le délai de fermeture
-  dropdownContent.style.display = 'block';
+    clearTimeout(dropdownTimeout); // Annule le délai de fermeture
+    dropdownContent.style.display = 'block';
 });
 
 // Masquer le menu après un délai lorsque la souris quitte le bouton ou le contenu
 dropdown.addEventListener('mouseleave', () => {
-  dropdownTimeout = setTimeout(() => {
-    dropdownContent.style.display = 'none';
-  }, 300); // Délai de 300 ms avant de masquer le menu
+    dropdownTimeout = setTimeout(() => {
+        dropdownContent.style.display = 'none';
+    }, 300); // Délai de 300 ms avant de masquer le menu
 });
 
 const notyf = new Notyf({
@@ -29,14 +29,14 @@ const notyf = new Notyf({
 function saveFormData() {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
     const phoneNumber = document.querySelector('input[name="telephone"]').value;
-
+    
     // Store the phone number
     localStorage.setItem('telephone', phoneNumber);
-
+    
     inputs.forEach(input => {
         localStorage.setItem(input.name, input.value);
     });
-
+    
     notyf.success('Données enregistrées avec succès!');
     toggleEditMode(false);
 }
@@ -44,9 +44,9 @@ function saveFormData() {
 // Function to load form data from local storage
 function loadFormData() {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
-
+    
     document.querySelector('input[name="telephone"]').value = localStorage.getItem('telephone') || '';
-
+    
     inputs.forEach(input => {
         if (localStorage.getItem(input.name)) {
             input.value = localStorage.getItem(input.name);
@@ -60,11 +60,11 @@ function toggleEditMode(isEditing) {
     const editButton = document.getElementById('editBtn');
     const saveButton = document.getElementById('saveBtn');
     const cancelButton = document.getElementById('cancelBtn');
-
+    
     inputs.forEach(input => {
         input.disabled = !isEditing;
     });
-
+    
     editButton.style.display = isEditing ? 'none' : 'inline-block';
     saveButton.style.display = isEditing ? 'inline-block' : 'none';
     cancelButton.style.display = isEditing ? 'inline-block' : 'none';
@@ -97,26 +97,26 @@ function validateForm() {
     const today = new Date();
     const dob = new Date(dobInput.value);
     let allValid = true;
-
+    
     inputs.forEach(input => {
         const isValid = validateField(input);
         allValid = allValid && isValid;
     });
-
+    
     if (!phoneRegex.test(phoneInput.value)) {
         setFieldError(phoneInput, 'Veuillez entrer un numéro de téléphone français valide.');
         allValid = false;
     } else {
         clearFieldError(phoneInput);
     }
-
+    
     if (dob >= today) {
         setFieldError(dobInput, 'La date de naissance doit être antérieure à aujourd\'hui.');
         allValid = false;
     } else {
         clearFieldError(dobInput);
     }
-
+    
     return allValid;
 }
 
@@ -148,7 +148,7 @@ function setFieldError(field, message) {
     errorMessage.style.color = 'red';
     errorMessage.style.fontSize = '0.9rem';
     errorMessage.textContent = message;
-
+    
     clearFieldError(field);
     field.parentNode.appendChild(errorMessage);
     notyf.error(message);

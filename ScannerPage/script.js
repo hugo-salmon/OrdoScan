@@ -75,52 +75,52 @@ let dropdownTimeout;
 
 // Afficher le menu lorsque la souris survole le bouton ou le contenu
 dropdown.addEventListener('mouseenter', () => {
-  clearTimeout(dropdownTimeout); // Annule le délai de fermeture
-  dropdownContent.style.display = 'block';
+    clearTimeout(dropdownTimeout); // Annule le délai de fermeture
+    dropdownContent.style.display = 'block';
 });
 
 // Masquer le menu après un délai lorsque la souris quitte le bouton ou le contenu
 dropdown.addEventListener('mouseleave', () => {
-  dropdownTimeout = setTimeout(() => {
-    dropdownContent.style.display = 'none';
-  }, 300); // Délai de 300 ms avant de masquer le menu
+    dropdownTimeout = setTimeout(() => {
+        dropdownContent.style.display = 'none';
+    }, 300); // Délai de 300 ms avant de masquer le menu
 });
-  
+
 document.addEventListener('DOMContentLoaded', () => {
     loadOrdonnance();
     loadRecap();
-  });
+});
 
 document.getElementById('zoomIn').addEventListener('click', () => {
-  if (zoomLevel < 200) { // Limite de zoom maximale (par exemple, 200%)
-    zoomLevel += 10;
-    updateZoom();
-  }
+    if (zoomLevel < 200) { // Limite de zoom maximale (par exemple, 200%)
+        zoomLevel += 10;
+        updateZoom();
+    }
 });
 
 document.getElementById('zoomOut').addEventListener('click', () => {
-  if (zoomLevel > 50) { // Limite de zoom minimale (par exemple, 50%)
-    zoomLevel -= 10;
-    updateZoom();
-  }
+    if (zoomLevel > 50) { // Limite de zoom minimale (par exemple, 50%)
+        zoomLevel -= 10;
+        updateZoom();
+    }
 });
 
 document.getElementById('resetZoom').addEventListener('click', () => {
-  zoomLevel = 100; // Réinitialiser à 100%
-  updateZoom();
+    zoomLevel = 100; // Réinitialiser à 100%
+    updateZoom();
 });
 
 function updateZoom() {
-  const previewImage = document.getElementById('previewImage');
-  previewImage.style.transform = `scale(${zoomLevel / 100})`;
-  document.getElementById('zoomLevel').textContent = `${zoomLevel}%`;
+    const previewImage = document.getElementById('previewImage');
+    previewImage.style.transform = `scale(${zoomLevel / 100})`;
+    document.getElementById('zoomLevel').textContent = `${zoomLevel}%`;
 }
 
 function loadOrdonnance() {
     const savedData = JSON.parse(localStorage.getItem(ORDONNANCE_KEY));
     if (savedData && savedData.previewSrc) {
         previewImage.src = savedData.previewSrc;
-
+        
         // Vérifier que previewName et fileInfo existent avant de modifier leur texte
         if (previewName) {
             previewName.textContent = savedData.fileName;
@@ -141,8 +141,8 @@ function loadOrdonnance() {
 
 function saveOrdonnance(file, src) {
     const data = {
-      fileName: file.name,
-      previewSrc: src,
+        fileName: file.name,
+        previewSrc: src,
     };
     localStorage.setItem(ORDONNANCE_KEY, JSON.stringify(data));
 }
@@ -152,13 +152,13 @@ function clearStorage() {
     localStorage.removeItem(RECAP_KEY);
     fileInfo.textContent = 'Aucun fichier sélectionné.';
 }
-  
-  // Fonction pour charger le récapitulatif à partir du localStorage
-  function loadRecap() {
+
+// Fonction pour charger le récapitulatif à partir du localStorage
+function loadRecap() {
     const savedData = JSON.parse(localStorage.getItem(RECAP_KEY));
     if (savedData) {
-      updateRecapTable(savedData);
-      recapContainer.style.display = 'block';
+        updateRecapTable(savedData);
+        recapContainer.style.display = 'block';
     }
 }
 function saveRecap(data) {
@@ -219,14 +219,14 @@ function updateNoReminderMessage(reminderTimesContainer, noReminderMessage) {
 function createMedicationSuggestionsInput(inputElement) {
     const datalistId = 'medicationSuggestions';
     let datalist = document.getElementById(datalistId);
-
+    
     // Créer le datalist s'il n'existe pas encore
     if (!datalist) {
         datalist = document.createElement('datalist');
         datalist.id = datalistId;
         document.body.appendChild(datalist);
     }
-
+    
     // Mettre à jour le datalist avec les noms des médicaments connus
     datalist.innerHTML = '';
     knownMedications.forEach(med => {
@@ -234,10 +234,10 @@ function createMedicationSuggestionsInput(inputElement) {
         option.value = med;
         datalist.appendChild(option);
     });
-
+    
     // Associer le datalist au champ input
     inputElement.setAttribute('list', datalistId);
-
+    
     // Ajouter un événement pour remplir le champ avec la suggestion choisie
     inputElement.addEventListener('input', () => {
         if (knownMedications.includes(inputElement.value.toUpperCase())) {
@@ -251,47 +251,47 @@ function populateMedicationTable(medications) {
     medications.forEach(med => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><input type="checkbox" class="rowCheckbox" /></td>
-            <td><input type="text" value="${med}" placeholder="Nom du médicament" class="requiredField"></td>
-            <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
-            <td>
-                <div class="recurrence">
-                    <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
-                    <div class="reminderTimes"></div>
-                    <button type="button" class="addReminderTime">Ajouter une heure</button>
-                </div>
-            </td>
-            <td><input type="number" placeholder="Récurrence (jours)" class="requiredField" min="1" value="1"></td>
-            <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
-            <td><input type="text" placeholder="Notes"></td>
+        <td><input type="checkbox" class="rowCheckbox" /></td>
+        <td><input type="text" value="${med}" placeholder="Nom du médicament" class="requiredField"></td>
+        <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
+        <td>
+        <div class="recurrence">
+        <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
+        <div class="reminderTimes"></div>
+        <button type="button" class="addReminderTime">Ajouter une heure</button>
+        </div>
+        </td>
+        <td><input type="number" placeholder="Récurrence (jours)" class="requiredField" min="1" value="1"></td>
+        <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
+        <td><input type="text" placeholder="Notes"></td>
         `;
         medicationTable.appendChild(row);
-
+        
         const nameInput = row.querySelector('td:nth-child(2) input');
         createMedicationSuggestionsInput(nameInput);
-
+        
         const recurrenceInput = row.querySelector('input[type="number"]');
-
+        
         recurrenceInput.addEventListener('input', () => {
             updateConfirmButtonState();
         });
-
+        
         row.querySelectorAll('.requiredField').forEach(input => {
             input.addEventListener('input', updateConfirmButtonState);
         });
-
+        
         const addReminderTimeButton = row.querySelector('.addReminderTime');
         const reminderTimesContainer = row.querySelector('.reminderTimes');
         const noReminderMessage = row.querySelector('.noReminderMessage');
-
+        
         addReminderTimeButton.addEventListener('click', () => {
             const timeContainer = document.createElement('div');
             timeContainer.classList.add('reminderTimeItem');
-
+            
             const timeInput = document.createElement('input');
             timeInput.type = 'time';
             timeInput.classList.add('requiredField');
-
+            
             const removeIcon = document.createElement('i');
             removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
             removeIcon.addEventListener('click', () => {
@@ -299,18 +299,18 @@ function populateMedicationTable(medications) {
                 updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
                 updateConfirmButtonState();
             });
-
+            
             timeContainer.appendChild(timeInput);
             timeContainer.appendChild(removeIcon);
             reminderTimesContainer.appendChild(timeContainer);
-
+            
             timeInput.addEventListener('input', updateConfirmButtonState);
             updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
         });
-
+        
         // Vérifier le message au chargement initial
         updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
-
+        
         row.querySelectorAll('.requiredField').forEach(input => {
             input.addEventListener('input', updateConfirmButtonState);
         });
@@ -325,7 +325,7 @@ function populateMedicationTable(medications) {
 function updateConfirmButtonState() {
     const rows = medicationTable.querySelectorAll('tr');
     let allFieldsValid = true;
-
+    
     rows.forEach(row => {
         const requiredFields = row.querySelectorAll('.requiredField:not([placeholder="Notes"])'); // Exclure le champ "Notes"
         requiredFields.forEach(field => {
@@ -333,13 +333,13 @@ function updateConfirmButtonState() {
                 allFieldsValid = false;
             }
         });
-
+        
         const recurrence = row.querySelector('input[type="number"]');
         if (!recurrence.value || parseInt(recurrence.value, 10) <= 0) {
             allFieldsValid = false;
         }
     });
-
+    
     confirmMedications.disabled = !allFieldsValid;
     confirmMedications.style.opacity = allFieldsValid ? '1' : '0.6';
 }
@@ -349,7 +349,7 @@ function updateConfirmButtonState() {
 function getCurrentRecapData() {
     const rows = recapTable.querySelectorAll('tr');
     const medicationData = [];
-
+    
     rows.forEach(row => {
         const name = row.querySelector('td:nth-child(1) input').value;
         const dosage = row.querySelector('td:nth-child(2) input').value;
@@ -357,7 +357,7 @@ function getCurrentRecapData() {
         const notes = row.querySelector('td:nth-child(6) input').value;
         const recurrence = row.querySelector('td:nth-child(4) input').value;
         const reminderTimes = Array.from(row.querySelectorAll('.reminderTimes input[type="time"]')).map(input => input.value);
-
+        
         medicationData.push({
             name,
             dosage,
@@ -367,7 +367,7 @@ function getCurrentRecapData() {
             recurrence: parseInt(recurrence, 10) || 1 
         });
     });
-
+    
     return medicationData;
 }
 
@@ -416,14 +416,14 @@ addNewMedicationButton.addEventListener('click', () => {
         endDate: '',
         notes: ''
     };
-
+    
     const updatedRecapData = [...JSON.parse(localStorage.getItem(RECAP_KEY) || '[]'), newMedData];
-
+    
     updateRecapTable(updatedRecapData);
-
+    
     // Afficher une notification immédiatement pour indiquer l'ajout
     notyf.success('Médicament ajouté au récapitulatif.');
-
+    
     // Attendre un peu avant de sauvegarder les données dans le localStorage
     setTimeout(() => {
         saveRecap(updatedRecapData); // Sauvegarde les données et envoie le mail avec les nouvelles données
@@ -438,19 +438,19 @@ async function handleFile(file) {
         notyf.error('Aucun fichier sélectionné.');
         return;
     }
-
+    
     if (!file.type.match('image.*')) {
         fileInfo.textContent = 'Veuillez sélectionner une image valide.';
         notyf.error('Veuillez sélectionner une image valide.');
         return;
     }
-
+    
     // Masquer le message de fichier et afficher le conteneur d'aperçu
     fileInfo.textContent = `Fichier sélectionné : ${file.name}`;
     dropzone.style.display = 'none';
     previewContainer.style.display = 'block';
     notyf.success('Fichier ajouté avec succès.');
-
+    
     // Créer un aperçu de l'image
     const reader = new FileReader();
     reader.onload = function() {
@@ -465,60 +465,60 @@ async function handleFile(file) {
 async function analyzeImage(imageData) {
     showLoader(true);
     const imageContent = imageData.split(',')[1];
-
+    
     try {
         const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_API_KEY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                requests: [{
-                    image: {
-                        content: imageContent
-                    },
-                    features: [{ type: 'TEXT_DETECTION' }]
-                }]
-            })
-        });
-
-        const result = await response.json();
-
-        if (result.responses[0].textAnnotations) {
-            const extractedText = result.responses[0].textAnnotations[0].description;
-            const recognizedMedications = extractRecognizedMedications(extractedText);
-            
-            if (recognizedMedications.length > 0) {
-                populateMedicationTable(recognizedMedications);
-                medicationModal.hidden = false; // Afficher la modale après l'analyse
-            } else {
-                alert('Aucun médicament reconnu dans l\'image.');
-            }
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            requests: [{
+                image: {
+                    content: imageContent
+                },
+                features: [{ type: 'TEXT_DETECTION' }]
+            }]
+        })
+    });
+    
+    const result = await response.json();
+    
+    if (result.responses[0].textAnnotations) {
+        const extractedText = result.responses[0].textAnnotations[0].description;
+        const recognizedMedications = extractRecognizedMedications(extractedText);
+        
+        if (recognizedMedications.length > 0) {
+            populateMedicationTable(recognizedMedications);
+            medicationModal.hidden = false; // Afficher la modale après l'analyse
         } else {
-            alert('Aucun texte trouvé dans l\'image.');
+            alert('Aucun médicament reconnu dans l\'image.');
         }
-    } catch (error) {
-        console.error('Erreur:', error);
-        alert('Une erreur est survenue lors du traitement de l\'image.');
-    } finally {
-        showLoader(false);
+    } else {
+        alert('Aucun texte trouvé dans l\'image.');
     }
+} catch (error) {
+    console.error('Erreur:', error);
+    alert('Une erreur est survenue lors du traitement de l\'image.');
+} finally {
+    showLoader(false);
+}
 }
 
 // Réafficher la dropzone et masquer le conteneur d'aperçu si l'utilisateur souhaite annuler
 removePreviewButton.addEventListener('click', () => {
     // Afficher une notification immédiatement pour indiquer la suppression
     notyf.success('Ordonnance et récapitulatif supprimés avec succès.');
-
+    
     // Attendre un peu avant de procéder à la suppression et à la réinitialisation de l'affichage
     setTimeout(() => {
         // Effacer le stockage local pour l'ordonnance et le récapitulatif
         clearStorage();
-
+        
         // Vider le contenu du récapitulatif, masquer le conteneur et réinitialiser l'affichage
         recapTable.innerHTML = '';
         updateRecapContainerVisibility(); // Masquer le conteneur si aucune donnée n'est présente
-
+        
         // Réinitialiser les éléments de l'interface utilisateur
         fileInput.value = ''; // Réinitialiser l'input file pour permettre une nouvelle sélection
         dropzone.style.display = 'block'; // Afficher la zone de dépôt
@@ -526,7 +526,7 @@ removePreviewButton.addEventListener('click', () => {
         previewImage.src = ''; // Réinitialiser l'image d'aperçu
         previewName.textContent = 'Aucun fichier sélectionné.'; // Vider le nom de l'aperçu
         fileInfo.textContent = 'Aucun fichier sélectionné.'; // Mettre à jour le message pour indiquer qu'il n'y a pas de fichier sélectionné
-
+        
         // Masquer la modale au cas où elle serait ouverte
         medicationModal.hidden = true;
     }, 1000); // Délai de 300 ms
@@ -550,50 +550,50 @@ closeModal.addEventListener('click', () => {
 addMedication.addEventListener('click', () => {
     const row = document.createElement('tr');
     row.innerHTML = `
-        <td><input type="checkbox" class="rowCheckbox" /></td>
-        <td><input type="text" placeholder="Nom du médicament" class="requiredField"></td>
-        <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
-        <td>
-            <div class="recurrence">
-                <div class="reminderTimes"></div>
-                <button type="button" class="addReminderTime">Ajouter une heure</button>
-            </div>
-        </td>
-        <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
-        <td><input type="text" placeholder="Notes"></td>
+    <td><input type="checkbox" class="rowCheckbox" /></td>
+    <td><input type="text" placeholder="Nom du médicament" class="requiredField"></td>
+    <td><input type="text" placeholder="Dosage (g, mg...)" class="requiredField"></td>
+    <td>
+    <div class="recurrence">
+    <div class="reminderTimes"></div>
+    <button type="button" class="addReminderTime">Ajouter une heure</button>
+    </div>
+    </td>
+    <td><input type="date" placeholder="Date de fin" class="requiredField"></td>
+    <td><input type="text" placeholder="Notes"></td>
     `;
     medicationTable.appendChild(row);
     updateNoMedicationsMessage();
     toggleDeleteButtonVisibility();
-
+    
     const nameInput = row.querySelector('td:nth-child(2) input');
     createMedicationSuggestionsInput(nameInput); // Ajouter les suggestions pour le nom du médicament
-
+    
     const addReminderTimeButton = row.querySelector('.addReminderTime');
     const reminderTimesContainer = row.querySelector('.reminderTimes');
-
+    
     addReminderTimeButton.addEventListener('click', () => {
         const timeContainer = document.createElement('div');
         timeContainer.classList.add('reminderTimeItem');
-
+        
         const timeInput = document.createElement('input');
         timeInput.type = 'time';
         timeInput.classList.add('requiredField');
-
+        
         const removeIcon = document.createElement('i');
         removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
         removeIcon.addEventListener('click', () => {
             timeContainer.remove();
             updateConfirmButtonState();
         });
-
+        
         timeContainer.appendChild(timeInput);
         timeContainer.appendChild(removeIcon);
         reminderTimesContainer.appendChild(timeContainer);
-
+        
         timeInput.addEventListener('input', updateConfirmButtonState);
     });
-
+    
     row.querySelectorAll('.requiredField').forEach(input => {
         input.addEventListener('input', updateConfirmButtonState);
     });
@@ -602,24 +602,24 @@ addMedication.addEventListener('click', () => {
 
 function sendEmailWithICSLink(medicationData) {
     fetch('http://localhost:3001/create-ics', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            medicationData: medicationData,
-            recipientEmail: 'salmon.hugo69330@gmail.com', // Remplacez par l'adresse email de destination
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            notyf.success('Email avec le lien ICS envoyé avec succès.');
-        } else {
-            notyf.error('Erreur lors de l\'envoi de l\'email avec le lien ICS.');
-        }
-    })
-    .catch(error => console.error('Erreur lors de l\'envoi de l\'email avec le lien ICS :', error));
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        medicationData: medicationData,
+        recipientEmail: 'salmon.hugo69330@gmail.com', // Remplacez par l'adresse email de destination
+    }),
+})
+.then(response => response.json())
+.then(data => {
+    if (data.message) {
+        notyf.success('Email avec le lien ICS envoyé avec succès.');
+    } else {
+        notyf.error('Erreur lors de l\'envoi de l\'email avec le lien ICS.');
+    }
+})
+.catch(error => console.error('Erreur lors de l\'envoi de l\'email avec le lien ICS :', error));
 }
 
 
@@ -630,28 +630,28 @@ confirmMedications.addEventListener('click', () => {
     const medicationData = [];
     const today = new Date().toISOString().split('T')[0];
     let hasInvalidDate = false;
-
+    
     rows.forEach(row => {
         const inputs = row.querySelectorAll('input');
         const reminderTimes = Array.from(row.querySelectorAll('.reminderTimes input')).map(input => input.value);
-
+        
         // Récupération de la date de fin depuis l'input de type date
         const endDateInput = row.querySelector('input[type="date"]');
         const endDate = endDateInput ? endDateInput.value : ''; 
-
+        
         // Vérifier que la date de fin est supérieure ou égale à aujourd'hui
         if (endDate && endDate < today) {
             hasInvalidDate = true;
         }
-
+        
         // Récupération des notes depuis leur champ dédié
         const notesInput = row.querySelector('input[placeholder="Notes"]');
         const notes = notesInput ? notesInput.value : ''; 
-
+        
         // Récupération de la récursivité
         const recurrenceInput = row.querySelector('input[type="number"]');
         const recurrence = recurrenceInput ? parseInt(recurrenceInput.value, 10) || 1 : 1;
-
+        
         const data = {
             name: inputs[1].value,
             dosage: inputs[2].value,
@@ -660,23 +660,23 @@ confirmMedications.addEventListener('click', () => {
             notes: notes,
             recurrence: recurrence
         };
-
+        
         medicationData.push(data);
     });
-
+    
     if (hasInvalidDate) {
         notyf.error('La date de fin doit être supérieure ou égale à aujourd\'hui.');
         return; // Arrêter la sauvegarde si une date est invalide
     }
-
+    
     // Afficher la notification de succès immédiatement avant la sauvegarde
     notyf.success('Médicaments ajoutés au récapitulatif avec succès.');
-
+    
     // Sauvegarder les données et mettre à jour le récapitulatif après un léger délai de 500 ms
     setTimeout(() => {
         saveRecap(medicationData);
         updateRecapTable(medicationData);
-
+        
         // Masquer la modale après la confirmation
         medicationModal.hidden = true;
         updateNoMedicationsMessage();
@@ -693,39 +693,39 @@ function updateRecapTable(medicationData) {
     medicationData.forEach((med, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><input type="text" value="${med.name}" class="recapField" readonly></td>
-            <td><input type="text" value="${med.dosage}" class="recapField" readonly></td>
-            <td>
-                <div class="recurrence">
-                    <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
-                    <div class="reminderTimes">
-                        ${med.reminderTimes.map(time => `
-                            <div class="reminderTimeItem">
-                                <input type="time" value="${time}" class="recapField" readonly>
-                                <i class="fas fa-times removeTimeIcon" style="display: none;"></i>
-                            </div>`).join('')}
-                    </div>
-                    <button type="button" class="addReminderTime" style="display: none;">Ajouter une heure</button>
-                </div>
-            </td>
-            <td><input type="number" value="${med.recurrence}" class="recapField" readonly min="1"></td>
-            <td><input type="date" value="${med.endDate}" class="recapField" readonly></td>
-            <td><input type="text" value="${med.notes}" class="recapField" readonly></td>
-            <td>
-                <button class="editRecapRow">Modifier</button>
-                <button class="cancelRecapRow" style="display: none;">Annuler</button>
-                <button class="saveRecapRow" style="display: none; opacity: 0.6;" disabled>Sauvegarder</button>
-                <button class="deleteRecapRow" ${isSingleMedication ? 'disabled' : ''}>
-                    Supprimer
-                    ${isSingleMedication ? '<i class="tooltip-icon" title="Impossible de supprimer le seul médicament.">i</i>' : ''}
-                </button>
-            </td>
+        <td><input type="text" value="${med.name}" class="recapField" readonly></td>
+        <td><input type="text" value="${med.dosage}" class="recapField" readonly></td>
+        <td>
+        <div class="recurrence">
+        <p class="noReminderMessage" style="display: none; color: #666; font-size: 12px;">Pas d'heure de rappel</p>
+        <div class="reminderTimes">
+        ${med.reminderTimes.map(time => `
+        <div class="reminderTimeItem">
+        <input type="time" value="${time}" class="recapField" readonly>
+        <i class="fas fa-times removeTimeIcon" style="display: none;"></i>
+        </div>`).join('')}
+        </div>
+        <button type="button" class="addReminderTime" style="display: none;">Ajouter une heure</button>
+        </div>
+        </td>
+        <td><input type="number" value="${med.recurrence}" class="recapField" readonly min="1"></td>
+        <td><input type="date" value="${med.endDate}" class="recapField" readonly></td>
+        <td><input type="text" value="${med.notes}" class="recapField" readonly></td>
+        <td>
+        <button class="editRecapRow">Modifier</button>
+        <button class="cancelRecapRow" style="display: none;">Annuler</button>
+        <button class="saveRecapRow" style="display: none; opacity: 0.6;" disabled>Sauvegarder</button>
+        <button class="deleteRecapRow" ${isSingleMedication ? 'disabled' : ''}>
+        Supprimer
+        ${isSingleMedication ? '<i class="tooltip-icon" title="Impossible de supprimer le seul médicament.">i</i>' : ''}
+        </button>
+        </td>
         `;
         recapTable.appendChild(row);
-
+        
         const nameInput = row.querySelector('td:nth-child(1) input');
         createMedicationSuggestionsInput(nameInput); // Ajouter les suggestions pour le nom du médicament
-
+        
         const editButton = row.querySelector('.editRecapRow');
         const cancelButton = row.querySelector('.cancelRecapRow');
         const saveButton = row.querySelector('.saveRecapRow');
@@ -734,11 +734,11 @@ function updateRecapTable(medicationData) {
         const reminderTimesContainer = row.querySelector('.reminderTimes');
         const noReminderMessage = row.querySelector('.noReminderMessage');
         const removeTimeIcons = row.querySelectorAll('.removeTimeIcon');
-
+        
         // Variable pour stocker l'état original et suivre les changements
         let originalState = null;
         let hasChanges = false;
-
+        
         // Fonction pour sauvegarder l'état actuel
         function saveOriginalState() {
             originalState = {
@@ -752,7 +752,7 @@ function updateRecapTable(medicationData) {
             hasChanges = false;
             updateSaveButtonState();
         }
-
+        
         // Fonction pour restaurer l'état original
         function restoreOriginalState() {
             if (originalState) {
@@ -762,35 +762,35 @@ function updateRecapTable(medicationData) {
                 row.querySelector('td:nth-child(5) input').value = originalState.endDate;
                 row.querySelector('td:nth-child(6) input').value = originalState.notes;
                 row.querySelector('td:nth-child(4) input').value = originalState.recurrence;
-        
+                
                 // Restaurer les heures de rappel
                 reminderTimesContainer.innerHTML = '';
                 originalState.reminderTimes.forEach(time => {
                     const timeContainer = document.createElement('div');
                     timeContainer.classList.add('reminderTimeItem');
-        
+                    
                     const timeInput = document.createElement('input');
                     timeInput.type = 'time';
                     timeInput.value = time;
                     timeInput.classList.add('recapField');
                     timeInput.readOnly = true;
-        
+                    
                     const removeIcon = document.createElement('i');
                     removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
                     removeIcon.style.display = 'none';
-        
+                    
                     timeContainer.appendChild(timeInput);
                     timeContainer.appendChild(removeIcon);
                     reminderTimesContainer.appendChild(timeContainer);
                 });
-        
+                
                 // Rétablir l'affichage des boutons et l'état des champs
                 updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
                 hasChanges = false;
                 updateSaveButtonState();
             }
         }
-
+        
         // Fonction pour mettre à jour l'état du bouton Sauvegarder
         // Fonction pour mettre à jour l'état du bouton Sauvegarder
         function updateSaveButtonState() {
@@ -799,39 +799,39 @@ function updateRecapTable(medicationData) {
             const endDateInput = row.querySelector('td:nth-child(5) input');
             const reminderInputs = row.querySelectorAll('.reminderTimes input[type="time"]');
             const recurrenceInput = row.querySelector('td:nth-child(4) input');
-        
+            
             // Vérifier que tous les champs requis sont remplis
             let allFieldsValid = true;
-        
+            
             if (!nameInput.value.trim() || 
-                !dosageInput.value.trim() || 
-                !endDateInput.value.trim() || 
-                !recurrenceInput.value || 
-                parseInt(recurrenceInput.value, 10) <= 0 || 
-                reminderInputs.length === 0) {
+            !dosageInput.value.trim() || 
+            !endDateInput.value.trim() || 
+            !recurrenceInput.value || 
+            parseInt(recurrenceInput.value, 10) <= 0 || 
+            reminderInputs.length === 0) {
                 allFieldsValid = false;
             }
-        
+            
             // Vérifier que toutes les heures de rappel sont remplies
             reminderInputs.forEach(input => {
                 if (!input.value) {
                     allFieldsValid = false;
                 }
             });
-        
+            
             // Activer le bouton seulement si tous les champs sont valides ET s'il y a eu des changements
             saveButton.disabled = !hasChanges || !allFieldsValid;
             saveButton.style.opacity = (hasChanges && allFieldsValid) ? '1' : '0.6';
         }
         
-
         
-
+        
+        
         // Fonction pour détecter les changements
         // Fonction pour détecter les changements
         function detectChanges() {
             if (!originalState) return;
-        
+            
             const currentState = {
                 name: row.querySelector('td:nth-child(1) input').value,
                 dosage: row.querySelector('td:nth-child(2) input').value,
@@ -840,7 +840,7 @@ function updateRecapTable(medicationData) {
                 reminderTimes: Array.from(row.querySelectorAll('.reminderTimes input[type="time"]')).map(input => input.value),
                 recurrence: row.querySelector('td:nth-child(4) input').value
             };
-        
+            
             // Vérifier si au moins un champ a été modifié
             hasChanges = (
                 currentState.name !== originalState.name ||
@@ -849,136 +849,136 @@ function updateRecapTable(medicationData) {
                 currentState.notes !== originalState.notes ||
                 currentState.recurrence !== originalState.recurrence ||
                 JSON.stringify(currentState.reminderTimes) !== JSON.stringify(originalState.reminderTimes)
-            );
-        
-            updateSaveButtonState();
-        }
-        
-
-
-        // Gérer le mode édition
-        editButton.addEventListener('click', () => {
-            saveOriginalState();
-            
-            // Rendre les champs éditables
-            row.querySelectorAll('.recapField').forEach(input => {
-                input.readOnly = false;
+                );
                 
-                // Ajouter les écouteurs d'événements pour détecter les changements
-                input.addEventListener('input', detectChanges);
-                input.addEventListener('change', detectChanges);
-            });
-        
-            // Afficher les contrôles d'édition
-            addReminderTimeButton.style.display = 'block';
-            reminderTimesContainer.querySelectorAll('.removeTimeIcon').forEach(icon => {
-                icon.style.display = 'inline-block';
-                icon.addEventListener('click', detectChanges);
+                updateSaveButtonState();
+            }
+            
+            
+            
+            // Gérer le mode édition
+            editButton.addEventListener('click', () => {
+                saveOriginalState();
+                
+                // Rendre les champs éditables
+                row.querySelectorAll('.recapField').forEach(input => {
+                    input.readOnly = false;
+                    
+                    // Ajouter les écouteurs d'événements pour détecter les changements
+                    input.addEventListener('input', detectChanges);
+                    input.addEventListener('change', detectChanges);
+                });
+                
+                // Afficher les contrôles d'édition
+                addReminderTimeButton.style.display = 'block';
+                reminderTimesContainer.querySelectorAll('.removeTimeIcon').forEach(icon => {
+                    icon.style.display = 'inline-block';
+                    icon.addEventListener('click', detectChanges);
+                });
+                
+                editButton.style.display = 'none';
+                cancelButton.style.display = 'inline-block';
+                saveButton.style.display = 'inline-block';
+                deleteButton.style.display = 'none';
             });
             
-            editButton.style.display = 'none';
-            cancelButton.style.display = 'inline-block';
-            saveButton.style.display = 'inline-block';
-            deleteButton.style.display = 'none';
-        });
-
-        // Gérer l'annulation
-        cancelButton.addEventListener('click', () => {
-            restoreOriginalState();
-            row.querySelectorAll('.recapField').forEach(input => input.readOnly = true);
-            addReminderTimeButton.style.display = 'none';
-            removeTimeIcons.forEach(icon => icon.style.display = 'none');
-            cancelButton.style.display = 'none';
-            saveButton.style.display = 'none';
-            editButton.style.display = 'inline-block';
-            deleteButton.style.display = 'inline-block';
-            notyf.success('Modifications annulées.');
-        });
-
-        // Gérer la sauvegarde
-        // Gérer la sauvegarde
-        saveButton.addEventListener('click', () => {
-            const today = new Date().toISOString().split('T')[0];
-            const endDateInput = row.querySelector('td:nth-child(5) input'); // Assurez-vous que le bon champ est sélectionné
-            if (endDateInput && endDateInput.value && endDateInput.value < today) {
-                notyf.error('La date de fin doit être supérieure ou égale à aujourd\'hui.');
-                return; // Arrêter la sauvegarde si la date est invalide
-            }
-        
-            // Marquer les champs comme readonly à nouveau
-            row.querySelectorAll('.recapField').forEach(input => input.readOnly = true);
-            addReminderTimeButton.style.display = 'none';
-            reminderTimesContainer.querySelectorAll('.removeTimeIcon').forEach(icon => icon.style.display = 'none');
-            cancelButton.style.display = 'none';
-            saveButton.style.display = 'none';
-            editButton.style.display = 'inline-block';
-            deleteButton.style.display = 'inline-block';
-            saveOriginalState();
-        
-            const updatedData = getCurrentRecapData();
-        
-            // Afficher une notification de succès
-            notyf.success('Médicament modifié avec succès.');
-        
-            // Sauvegarder les données après un délai pour permettre l'affichage de la notification
-            setTimeout(() => {
-                saveRecap(updatedData);
-            }, 1000); // Délai de 500 ms
-        });
-        
-
-        
-
-        // Gérer l'ajout d'heures de rappel
-        addReminderTimeButton.addEventListener('click', () => {
-            const timeContainer = document.createElement('div');
-            timeContainer.classList.add('reminderTimeItem');
-            const timeInput = document.createElement('input');
-            timeInput.type = 'time';
-            timeInput.classList.add('recapField');
-
-            const removeIcon = document.createElement('i');
-            removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
-            removeIcon.style.display = 'inline-block';
-            removeIcon.addEventListener('click', () => {
-                timeContainer.remove();
-                updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
-                detectChanges();
+            // Gérer l'annulation
+            cancelButton.addEventListener('click', () => {
+                restoreOriginalState();
+                row.querySelectorAll('.recapField').forEach(input => input.readOnly = true);
+                addReminderTimeButton.style.display = 'none';
+                removeTimeIcons.forEach(icon => icon.style.display = 'none');
+                cancelButton.style.display = 'none';
+                saveButton.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                deleteButton.style.display = 'inline-block';
+                notyf.success('Modifications annulées.');
             });
-
-            timeContainer.appendChild(timeInput);
-            timeContainer.appendChild(removeIcon);
-            reminderTimesContainer.appendChild(timeContainer);
-
-            timeInput.addEventListener('input', detectChanges);
+            
+            // Gérer la sauvegarde
+            // Gérer la sauvegarde
+            saveButton.addEventListener('click', () => {
+                const today = new Date().toISOString().split('T')[0];
+                const endDateInput = row.querySelector('td:nth-child(5) input'); // Assurez-vous que le bon champ est sélectionné
+                if (endDateInput && endDateInput.value && endDateInput.value < today) {
+                    notyf.error('La date de fin doit être supérieure ou égale à aujourd\'hui.');
+                    return; // Arrêter la sauvegarde si la date est invalide
+                }
+                
+                // Marquer les champs comme readonly à nouveau
+                row.querySelectorAll('.recapField').forEach(input => input.readOnly = true);
+                addReminderTimeButton.style.display = 'none';
+                reminderTimesContainer.querySelectorAll('.removeTimeIcon').forEach(icon => icon.style.display = 'none');
+                cancelButton.style.display = 'none';
+                saveButton.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                deleteButton.style.display = 'inline-block';
+                saveOriginalState();
+                
+                const updatedData = getCurrentRecapData();
+                
+                // Afficher une notification de succès
+                notyf.success('Médicament modifié avec succès.');
+                
+                // Sauvegarder les données après un délai pour permettre l'affichage de la notification
+                setTimeout(() => {
+                    saveRecap(updatedData);
+                }, 1000); // Délai de 500 ms
+            });
+            
+            
+            
+            
+            // Gérer l'ajout d'heures de rappel
+            addReminderTimeButton.addEventListener('click', () => {
+                const timeContainer = document.createElement('div');
+                timeContainer.classList.add('reminderTimeItem');
+                const timeInput = document.createElement('input');
+                timeInput.type = 'time';
+                timeInput.classList.add('recapField');
+                
+                const removeIcon = document.createElement('i');
+                removeIcon.classList.add('fas', 'fa-times', 'removeTimeIcon');
+                removeIcon.style.display = 'inline-block';
+                removeIcon.addEventListener('click', () => {
+                    timeContainer.remove();
+                    updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
+                    detectChanges();
+                });
+                
+                timeContainer.appendChild(timeInput);
+                timeContainer.appendChild(removeIcon);
+                reminderTimesContainer.appendChild(timeContainer);
+                
+                timeInput.addEventListener('input', detectChanges);
+                updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
+            });
+            
+            // Gérer la suppression de la ligne
+            deleteButton.addEventListener('click', () => {
+                row.remove();
+                
+                // Afficher une notification immédiatement pour indiquer la suppression
+                notyf.success('Médicament supprimé du récapitulatif.');
+                
+                // Attendre un peu avant de sauvegarder les données dans le localStorage
+                setTimeout(() => {
+                    saveRecap(getCurrentRecapData());
+                    updateRecapContainerVisibility();
+                }, 1000); // Délai de 300 ms
+            });
+            
             updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
         });
-
-        // Gérer la suppression de la ligne
-        deleteButton.addEventListener('click', () => {
-            row.remove();
-            
-            // Afficher une notification immédiatement pour indiquer la suppression
-            notyf.success('Médicament supprimé du récapitulatif.');
-            
-            // Attendre un peu avant de sauvegarder les données dans le localStorage
-            setTimeout(() => {
-                saveRecap(getCurrentRecapData());
-                updateRecapContainerVisibility();
-            }, 1000); // Délai de 300 ms
-        });
-
-        updateNoReminderMessage(reminderTimesContainer, noReminderMessage);
-    });
-
-    updateRecapContainerVisibility();
-}
-
-
-
-
-// Afficher ou masquer la section de récapitulatif
-function updateRecapContainerVisibility() {
-    const hasRecapData = recapTable.querySelectorAll('tr').length > 0;
-    recapContainer.style.display = hasRecapData ? 'block' : 'none';
-}
+        
+        updateRecapContainerVisibility();
+    }
+    
+    
+    
+    
+    // Afficher ou masquer la section de récapitulatif
+    function updateRecapContainerVisibility() {
+        const hasRecapData = recapTable.querySelectorAll('tr').length > 0;
+        recapContainer.style.display = hasRecapData ? 'block' : 'none';
+    }
