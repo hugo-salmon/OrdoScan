@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Extraction de texte avec Google Vision</title>
+  <title>Ajout d'ordonnances</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf/notyf.min.css">
   <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
   <link rel="stylesheet" href="styles.css">
@@ -18,10 +18,10 @@
     <div class="navbar-content">
       <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo" class="logo">
       <nav class="nav-links">
-        <a href="#"><i class="fas fa-upload"></i> Téléverser</a>
+        <a href="#"><i class="fas fa-upload"></i> Ajout d'ordonnances</a>
         <a href="#"><i class="fas fa-pills"></i> Médicaments</a>
-        <a href="#"><i class="fas fa-history"></i> Historique</a>
-        <a href="#"><i class="fas fa-cog"></i> Paramètres</a>
+        <a href="../HistoryPage/index.html"><i class="fas fa-history"></i> Mon historique</a>
+        <a href="../SettingsPage/index.html"><i class="fas fa-cog"></i> Paramètres</a>
         <select id="langue">
           <option value="FR"><span class="flag-icon flag-icon-fr">FR</span></option>
           <option value="EN"><span class="flag-icon flag-icon-gb">EN</span></option>
@@ -38,8 +38,8 @@
           <button class="dropdown-btn">Hugo SALMON</button>
           <div class="dropdown-content">
             <a href="#profile">Profil</a>
-            <a href="#switch-account">Changer de compte</a>
-            <a href="#logout">Déconnexion</a>
+            <a href="../connexion/connexion.html">Changer de compte</a>
+            <a href="../connexion/connexion.html">Déconnexion</a>
           </div>
         </div>
       </div>
@@ -89,6 +89,7 @@
             <th>Médicament*</th>
             <th>Dosage*</th>
             <th>Heure(s) de rappel*</th>
+            <th>Récurrence (jours)*</th>
             <th>Date de fin du traitement*</th>
             <th>Notes</th>
             <th>Actions</th>
@@ -98,7 +99,7 @@
           <!-- Les lignes de récapitulatif des médicaments seront ajoutées ici via JavaScript -->
         </tbody>
       </table>
-      <button id="addNewMedication" style="margin-top: 10px;">Ajouter un médicament</button>
+      <button id="addNewMedicationButton" class="add-medication-btn">Ajouter un médicament</button>
     </div>
 
     <!-- Modale pour la vérification et la modification des médicaments -->
@@ -113,6 +114,7 @@
               <th>Médicament*</th>
               <th>Dosage*</th>
               <th>Heure(s) de rappel*</th>
+              <th>Récurrence (jours)*</th>
               <th>Date de fin du traitement*</th>
               <th>Notes</th>
             </tr>
