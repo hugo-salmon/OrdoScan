@@ -3,7 +3,6 @@ body {
   margin: 0;
   padding: 0;
   background: #f5f5f5;
-  /* background-image: linear-gradient(to bottom right, #e0f7fa, #b2ebf2); */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -51,6 +50,27 @@ main {
   padding: 0.5rem;
 }
 
+.nav-links select {
+  background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links select:hover {
+  background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+}
+
+.nav-links select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
 .nav-links a i {
   margin-right: 8px;
 }
@@ -63,44 +83,77 @@ main {
 .user-menu {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.user-menu .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #357ABD;
+}
+
+.user-menu .dropdown {
   position: relative;
 }
 
-.avatar {
-  height: 30px; 
-  border-radius: 50%;
+.user-menu .dropdown-btn {
+  background: #357ABD;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.avatar:hover {
-  transform: scale(1.05); 
+.user-menu .dropdown-btn:hover {
+  background: #2a5a8d;
 }
 
-.dropdown-content {
+.user-menu .dropdown-content {
   display: none;
   position: absolute;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
   right: 0;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  z-index: 1;
+  margin-top: 10px;
+  min-width: 150px;
+  z-index: 10;
 }
 
-.dropdown-content a {
-  color: #0E7ACA;
-  padding: 0.5rem;
+.user-menu .dropdown.open .dropdown-content {
+  display: block;
+}
+
+
+.user-menu .dropdown-content a {
+  color: #333;
+  padding: 10px 15px;
   text-decoration: none;
   display: block;
+  transition: background-color 0.2s ease;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
+.user-menu .dropdown-content a:hover {
+  background: #f0f0f0;
 }
 
-.dropdown:hover .dropdown-content {
+.user-menu .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Ajout d'une icône de flèche pour le bouton du dropdown */
+.user-menu .dropdown-btn::after {
+  content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: 5px;
 }
 
 .footer {
@@ -590,3 +643,29 @@ main {
 #legal-href:hover {
   text-decoration: underline;
 }
+.add-medication-btn {
+  margin-top: 20px; /* Espace entre le tableau et le bouton */
+  padding: 10px 20px; /* Espace à l'intérieur du bouton */
+  background-color: #4CAF50; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur de la souris en mode "pointeur" */
+  font-size: 16px; /* Taille du texte */
+  transition: background-color 0.3s ease; /* Animation pour l'effet au survol */
+  display: block; /* Le bouton occupe toute la largeur possible */
+  width: fit-content; /* Ajuste la largeur à la taille du texte */
+  margin-left: auto; /* Centre le bouton */
+  margin-right: auto;
+}
+
+.add-medication-btn:hover {
+  background-color: #45a049; /* Couleur de fond au survol */
+}
+
+.add-medication-btn:disabled {
+  background-color: #ddd; /* Couleur de fond pour le bouton désactivé */
+  cursor: not-allowed; /* Changer le curseur pour indiquer que le bouton est désactivé */
+  color: #666; /* Couleur du texte désactivé */
+}
+

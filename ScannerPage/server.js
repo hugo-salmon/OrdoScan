@@ -12,13 +12,14 @@ app.use(bodyParser.json());
 
 // Fonction pour générer le fichier .ics
 // Fonction pour générer le fichier .ics
+// Fonction pour générer le fichier .ics avec la récence
 function generateICS(medicationData) {
     let icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN`;
 
     medicationData.forEach(med => {
-        const { name, reminderTimes, endDate } = med;
+        const { name, reminderTimes, endDate, recurrence } = med;
 
         reminderTimes.forEach(time => {
             const [hours, minutes] = time.split(':');
@@ -35,12 +36,13 @@ CALSCALE:GREGORIAN`;
             endDateObj.setHours(23, 59, 59);
             const endDateFormatted = formatDateToICS(endDateObj);
 
+            // Inclure la règle de récurrence en fonction de la récence
             icsContent += `
 BEGIN:VEVENT
 SUMMARY:Rappel - ${name}
 DTSTART:${startTime}
 DTEND:${startTime}
-RRULE:FREQ=DAILY;UNTIL=${endDateFormatted}
+RRULE:FREQ=DAILY;INTERVAL=${recurrence};UNTIL=${endDateFormatted}
 DESCRIPTION:Rappel pour prendre le médicament ${name} à ${time}.
 END:VEVENT`;
         });
@@ -51,6 +53,7 @@ END:VCALENDAR`;
 
     return icsContent;
 }
+
 
 
 function formatDateToICS(date) {
@@ -89,7 +92,7 @@ function sendEmailWithICS(email, icsUrl, medicationData, res) {
         },
     });
 
-    // Construire le contenu de l'email avec les détails des médicaments
+    // Construire le contenu de l'email avec les détails des médicaments, y compris la récurrence
     let emailContent = `Bonjour,\n\nVous trouverez ci-dessous les détails de vos médicaments et leurs rappels :\n\n`;
 
     medicationData.forEach((med, index) => {
@@ -97,6 +100,7 @@ function sendEmailWithICS(email, icsUrl, medicationData, res) {
 - Nom : ${med.name}
 - Dosage : ${med.dosage || 'Non spécifié'}
 - Heures de rappel : ${med.reminderTimes.length > 0 ? med.reminderTimes.join(', ') : 'Aucune heure de rappel spécifiée'}
+- Récurrence : Tous les ${med.recurrence} jour(s)
 - Date de fin : ${med.endDate || 'Non spécifiée'}
 - Notes : ${med.notes || 'Aucune note spécifiée'}
 
@@ -122,6 +126,7 @@ function sendEmailWithICS(email, icsUrl, medicationData, res) {
         }
     });
 }
+
 
 
 

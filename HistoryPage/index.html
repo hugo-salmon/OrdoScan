@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon historique</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf/notyf.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="../config.js" defer></script>
+  <script type="module" src="script.js" defer></script>
+  <script src="../trad.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo" class="logo">
+      <nav class="nav-links">
+        <a href="../ScannerPage/index.html"><i class="fas fa-upload"></i> Ajout d'ordonnances</a>
+        <a href="#"><i class="fas fa-pills"></i> Médicaments</a>
+        <a href="#"><i class="fas fa-history"></i> Mon historique</a>
+        <a href="../SettingsPage/index.html"><i class="fas fa-cog"></i> Paramètres</a>
+        <select id="langue">
+          <option value="FR"><span class="flag-icon flag-icon-fr">FR</span></option>
+          <option value="EN"><span class="flag-icon flag-icon-gb">EN</span></option>
+          <option value="ES"><span class="flag-icon flag-icon-es">ES</span></option>
+          <option value="DE"><span class="flag-icon flag-icon-de">DE</span></option>
+          <option value="IT"><span class="flag-icon flag-icon-it">IT</span></option>
+          <option value="PT"><span class="flag-icon flag-icon-pt">PT</span></option>
+          <option value="NL"><span class="flag-icon flag-icon-nl">NL</span></option>
+        </select>
+      </nav>
+      <div class="user-menu">
+        <img src="../assets/logo ol.svg" alt="Avatar" class="avatar">
+        <div class="dropdown">
+          <button class="dropdown-btn">Hugo SALMON</button>
+          <div class="dropdown-content">
+            <a href="#profile">Profil</a>
+            <a href="../connexion/connexion.html">Changer de compte</a>
+            <a href="../connexion/connexion.html">Déconnexion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <h1 class="main-title">Historique de l'application</h1>
+    <div class="placeholder">
+      <p>Cette page n'est pas encore disponible.</p>
+    </div>
+  </main>
+  
+
+  <footer class="footer">
+    <p>&copy; 2024 - Extraction de texte avec Google Vision</p>
+  </footer>
+</body>
+</html>
