@@ -576,3 +576,66 @@ progress::-moz-progress-bar {
     cursor: pointer;
   }
   
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Aligne verticalement le bouton et la barre */
+    gap: 10px; /* Espace entre la barre de recherche et le bouton */
+    margin-bottom: 30px;
+  }
+  
+  .search-wrapper {
+    position: relative;
+    flex: 1; /* La barre de recherche prendra tout l'espace disponible */
+    max-width: 400px; /* Limite la largeur de la barre pour éviter qu'elle soit trop grande */
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Ajuste l'espace pour l'icône de croix */
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  }
+  
+  .search-input:focus {
+    border-color: #00aaff;
+    box-shadow: 0 0 8px rgba(0, 170, 255, 0.3);
+  }
+  
+  .clear-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .clear-icon:hover {
+    color: #333;
+  }
+  
+  .search-btn {
+    padding: 10px 20px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .search-btn:hover {
+    background-color: #007acc;
+    transform: translateY(-2px); /* Légère levée au survol */
+  }
+  
+  
+  
