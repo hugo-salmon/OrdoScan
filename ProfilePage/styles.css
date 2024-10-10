@@ -1,0 +1,287 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header, footer {
+  flex-shrink: 0;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.navbar {
+  background-color: #0E7ACA;
+  color: white;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 80px;
+  margin-right: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.nav-links select {
+  background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links select:hover {
+  background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+}
+
+.nav-links select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links a i {
+  margin-right: 8px;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-menu .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #357ABD;
+}
+
+.user-menu .dropdown {
+  position: relative;
+}
+
+.user-menu .dropdown-btn {
+  background: #357ABD;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.user-menu .dropdown-btn:hover {
+  background: #2a5a8d;
+}
+
+.user-menu .dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  right: 0;
+  margin-top: 10px;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.user-menu .dropdown.open .dropdown-content {
+  display: block;
+}
+
+
+.user-menu .dropdown-content a {
+  color: #333;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s ease;
+}
+
+.user-menu .dropdown-content a:hover {
+  background: #f0f0f0;
+}
+
+.user-menu .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Ajout d'une icône de flèche pour le bouton du dropdown */
+.user-menu .dropdown-btn::after {
+  content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+.footer {
+  background-color: #0E7ACA;
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  width: 100%;
+  position: relative; /* Changement de position pour éviter qu'il chevauche le contenu */
+  bottom: 0;
+}
+  
+  /* Profile Section */
+  .profile-section {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #0E7ACA;
+    object-fit: cover;
+    display: block;
+}
+  
+  .profile-details h2 {
+    margin: 0;
+    color: #0E7ACA;
+  }
+  
+  .profile-details p {
+    margin: 1rem 0;
+}
+
+.edit-profile-btn {
+  background-color: #0E7ACA;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px; /* Ajoute un espacement horizontal entre les boutons */
+}
+
+.edit-profile-btn:hover {
+  background-color: #0056b3; /* Couleur plus foncée au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+.edit-profile-btn:active {
+  background-color: #003f88; /* Couleur encore plus foncée à l'activation */
+  transform: translateY(0); /* Remettre à sa place initiale lors du clic */
+}
+
+/* Styles spécifiques pour le bouton Annuler */
+#cancelBtn {
+  background-color: #ff4d4d;
+  color: white;
+  margin-right: 20px; /* Augmente l'espacement à droite pour séparer davantage les boutons */
+}
+
+
+#cancelBtn:active {
+  background-color: #990000; /* Rouge encore plus foncé à l'activation */
+}
+
+/* Styles spécifiques pour le bouton Enregistrer */
+#saveBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+#saveBtn:hover {
+  background-color: #388e3c; /* Vert plus foncé au survol */
+}
+
+#saveBtn:active {
+  background-color: #2e7d32; /* Vert encore plus foncé à l'activation */
+}
+
+  
+  .footer {
+    background-color: #0E7ACA;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .profile-details input, .profile-details select {
+    padding: 8px;
+    margin: 5px 0;
+    width: 100%; /* Adjust width as needed */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.phone-input-container {
+  display: flex;
+  align-items: center; /* Aligns the select and input fields vertically */
+}
+
+.phone-input-container select {
+  width: 80px; /* Adjust the width of the prefix dropdown */
+  margin-right: 10px; /* Adds space between the prefix and the phone number */
+}
+
+.phone-input-container input {
+  flex: 1; /* Makes the phone number input take the remaining space */
+  padding: 8px;
+}
