@@ -159,12 +159,40 @@ body {
   .footer {
     background-color: #0E7ACA;
     color: white;
-    padding: 0.5rem;
     text-align: center;
-    width: 100%;
-    position: relative; /* Changement de position pour éviter qu'il chevauche le contenu */
+    padding: 15px;
+    position: fixed;
     bottom: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
+
+  #legal-href{
+    color: white;
+    margin-left: 10%;
+    text-decoration: none;
+}
+#politique-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
+#cgu-href{
+    color: white;
+    margin-left: 2%;
+    text-decoration: none;
+}
+
+#p-legal{
+    color: white;
+}
+#legal-href:hover {
+    text-decoration: underline;
+}
 
   .main-title {
     font-size: 2.5rem;

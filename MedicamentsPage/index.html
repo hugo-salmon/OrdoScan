@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Extraction de texte avec Google Vision</title>
-  <link rel="stylesheet" href="médicament.css">
+  <title>Médicaments</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="../config.js" defer></script>
-  <script type="module" src="médicament.js"></script>
+  <script type="module" src="script.js"></script>
   <script src="../trad.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
@@ -16,10 +16,10 @@
     <div class="navbar-content">
       <img src="../assets/ordoscan-high-resolution-logo-white-removebg.png" alt="Logo" class="logo">
       <nav class="nav-links">
-        <a href="/"><i class="fas fa-upload"></i> Téléverser</a>
-        <a href="/"><i class="fas fa-pills"></i> Mes Médicaments</a>
-        <a href="/"><i class="fas fa-history"></i> Historique</a>
-        <a href="/"><i class="fas fa-cog"></i> Paramètres</a>
+        <a href="../ScannerPage/index.html"><i class="fas fa-upload"></i> Ajout d'ordonnances</a>
+        <a href="#"><i class="fas fa-pills"></i> Médicaments</a>
+        <a href="../HistoryPage/index.html"><i class="fas fa-history"></i> Mon historique</a>
+        <a href="../SettingsPage/index.html"><i class="fas fa-cog"></i> Paramètres</a>
         <select id="langue">
           <option value="FR"><span class="flag-icon flag-icon-fr">FR</span></option>
           <option value="EN"><span class="flag-icon flag-icon-gb">EN</span></option>
@@ -35,9 +35,9 @@
         <div class="dropdown">
           <button class="dropdown-btn">Hugo SALMON</button>
           <div class="dropdown-content">
-            <a href="#profile">Profil</a>
-            <a href="#switch-account">Changer de compte</a>
-            <a href="#logout">Déconnexion</a>
+            <a href="../ProfilePage/index.html">Profil</a>
+            <a href="../LoginPage/index.html">Changer de compte</a>
+            <a href="../LoginPage/index.html">Déconnexion</a>
           </div>
         </div>
       </div>
@@ -63,21 +63,21 @@
       
       <div id="medicaments" class="medicaments-list"></div>
       
-      <script src="médicament.js"></script>
+      <script src="script.js"></script>
     </div>
   </main>
   
 
   <footer class="footer">
     <p>&copy; 2024 - Extraction de texte avec Google Vision</p>
-    <a href="../Legal/legal.html" id="legal-href">
-      <p id="p-legal">legal</p> 
+    <a href="../LegalNoticePage/index.html" id="legal-href" target="_blank">
+      <p id="p-legal">Mentions légales</p> 
    </a>
-   <a href="../cgu/cgu.html" id="cgu-href">
-      <p id="p-legal">Conditions Générale</p> 
+   <a href="../CguPage/index.html" id="cgu-href" target="_blank">
+      <p id="p-legal">Conditions Générales</p> 
    </a>
-   <a href="../politique/politique.html" id="politique-href">
-      <p id="p-legal">politque</p> 
+   <a href="../PrivacyPolicyPage/index.html" id="politique-href" target="_blank">
+      <p id="p-legal">Politique de confidentialité</p> 
    </a>
   </footer>
 </body>

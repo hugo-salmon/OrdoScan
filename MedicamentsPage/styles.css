@@ -1,13 +1,16 @@
-/* Container Principal */
+
 #container-medico {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
+  width: 80%; /* Définit une largeur constante */
+  max-width: 1200px; /* Largeur maximale pour les grands écrans */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  transition: width 0.3s ease; /* Transition pour rendre le changement de largeur plus fluide */
+}
+
   
   /* Titre */
   .title {
@@ -140,11 +143,26 @@
     background-color: #e63939;
   }
   
-body {
+  body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header, footer {
+    flex-shrink: 0;
+  }
+  
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
   }
   
   .navbar {
@@ -177,6 +195,27 @@ body {
     padding: 0.5rem;
   }
   
+  .nav-links select {
+    background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-links select:hover {
+    background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+  }
+  
+  .nav-links select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
   .nav-links a i {
     margin-right: 8px;
   }
@@ -189,44 +228,77 @@ body {
   .user-menu {
     display: flex;
     align-items: center;
+    gap: 10px;
+  }
+  
+  .user-menu .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #357ABD;
+  }
+  
+  .user-menu .dropdown {
     position: relative;
   }
   
-  .avatar {
-    height: 30px; 
-    border-radius: 50%;
+  .user-menu .dropdown-btn {
+    background: #357ABD;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
   }
   
-  .avatar:hover {
-    transform: scale(1.05); 
+  .user-menu .dropdown-btn:hover {
+    background: #2a5a8d;
   }
   
-  .dropdown-content {
+  .user-menu .dropdown-content {
     display: none;
     position: absolute;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
     right: 0;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index: 1;
+    margin-top: 10px;
+    min-width: 150px;
+    z-index: 10;
   }
   
-  .dropdown-content a {
-    color: #0E7ACA;
-    padding: 0.5rem;
+  .user-menu .dropdown.open .dropdown-content {
+    display: block;
+  }
+  
+  
+  .user-menu .dropdown-content a {
+    color: #333;
+    padding: 10px 15px;
     text-decoration: none;
     display: block;
+    transition: background-color 0.2s ease;
   }
   
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
+  .user-menu .dropdown-content a:hover {
+    background: #f0f0f0;
   }
   
-  .dropdown:hover .dropdown-content {
+  .user-menu .dropdown:hover .dropdown-content {
     display: block;
+  }
+  
+  /* Ajout d'une icône de flèche pour le bouton du dropdown */
+  .user-menu .dropdown-btn::after {
+    content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 5px;
   }
   
   .footer {
@@ -234,7 +306,6 @@ body {
     color: white;
     text-align: center;
     padding: 15px;
-    position: fixed;
     bottom: 0;
     width: 100%;
     font-family: 'Roboto', sans-serif;
@@ -266,232 +337,6 @@ body {
     text-align: center;
   }
   
-  #loader {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #0E7ACA;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin: 2rem auto;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  .modal {
-    display: none; /* Par défaut, la modale est cachée */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* La modale s'affiche quand elle n'a pas l'attribut hidden */
-  .modal:not([hidden]) {
-    display: flex;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 800px;
-    max-height: 60vh; /* Hauteur maximale de 80% de la hauteur de la fenêtre */
-    overflow-y: auto; /* Activer le défilement vertical si le contenu dépasse */
-    position: relative;
-  }
-  
-  /* Style pour le bouton de fermeture */
-  .close {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  /* Styles pour le tableau */
-  #medicationTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
-  #medicationTable th,
-  #medicationTable td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center; /* Centre le texte et les éléments à l'intérieur des cellules */
-  }
-  
-  #medicationTable th {
-    background-color: #f5f5f5;
-  }
-  
-  #medicationTable input[type="text"],
-  #medicationTable input[type="date"],
-  #medicationTable input[type="time"] {
-    width: 90%; /* Prend presque toute la largeur de la cellule */
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  #medicationTable input[type="checkbox"] {
-    cursor: pointer;
-  }
-  
-  /* Style pour le bouton Supprimer les sélectionnés */
-  #deleteSelected {
-    background-color: #ff4d4d;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  #deleteSelected:hover {
-    background-color: #cc0000;
-  }
-  
-  /* Style pour les boutons Ajouter un médicament et Confirmer */
-  #addMedication,
-  #confirmMedications {
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  #addMedication {
-    background-color: #e0e0e0;
-  }
-  
-  #confirmMedications {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  /* Style pour la section récurrence */
-  .recurrence {
-    margin-top: 10px;
-  }
-  
-  .recurrence label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 13px;
-  }
-  
-  .addReminderTime {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .addReminderTime:hover {
-    background-color: #0056b3;
-  }
-  
-  .reminderTimes {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espace entre les champs horaires */
-    margin-bottom: 10px; /* Espace entre les champs horaires et le bouton */
-  }
-  
-  .reminderTimeItem {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espace entre le champ de temps et l'icône */
-  }
-  
-  .removeTimeIcon {
-    color: #ff4d4d;
-    cursor: pointer;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  .removeTimeIcon:hover {
-    color: #cc0000;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Espace entre les boutons */
-    margin-top: 20px; /* Espace entre le tableau et les boutons */
-  }
-  
-  .recapContainer {
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .recapContainer h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  #recapTable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #recapTable th, #recapTable td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .recapField {
-    width: 90%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .deleteRecapRow {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .deleteRecapRow:hover {
-    background-color: #cc0000;
-  }
-  #container-medico{
-    padding-left: 5%;
-    padding-right: 5%;
-  }
   #legal-href{
     color: white;
     margin-left: 10%;
@@ -547,7 +392,7 @@ progress::-moz-progress-bar {
     background-color: #4caf50;
 }
 
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     top: 0;
@@ -566,7 +411,7 @@ progress::-moz-progress-bar {
     width: 80%;
     max-width: 600px;
     position: relative;
-  }
+  } */
   
   .close {
     position: absolute;
@@ -621,21 +466,9 @@ progress::-moz-progress-bar {
     color: #333;
   }
   
-  .search-btn {
-    padding: 10px 20px;
-    background-color: #00aaff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
+
   
-  .search-btn:hover {
-    background-color: #007acc;
-    transform: translateY(-2px); /* Légère levée au survol */
-  }
+
   
   
   
