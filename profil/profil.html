@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="styles.css">
   <script src="../trad.js" defer></script>
   <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf/notyf.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 </head>
@@ -47,14 +49,25 @@
     <section class="profile-section">
         <h1>Profil Utilisateur</h1>
         <div class="profile-container">
-           <img src="logo ol.svg" alt="Avatar" class="profile-avatar">
+           <img src="../assets/logo ol.svg" alt="Avatar" class="profile-avatar">
            <form id="profileForm">
                <div class="profile-details">
                   <p><strong>Nom:</strong> <input type="text" name="nom" placeholder="Nom" value="SALMON" disabled required></p>
                   <p><strong>Prénom:</strong> <input type="text" name="prenom" placeholder="Prénom" value="Hugo" disabled required></p>
                   <p><strong>Email:</strong> <input type="email" name="email" placeholder="Email" value="hugo.salmon@example.com" disabled required></p>
                   <p><strong>Date de naissance:</strong> <input type="date" name="dob" disabled required></p>
-                  <p><strong>Téléphone:</strong> <input type="tel" name="telephone" placeholder="Téléphone" disabled required></p>
+                  <p><strong>Téléphone:</strong>
+                    <div class="phone-input-container">
+                        <select name="phonePrefix" id="phonePrefix" disabled required>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+1">+1 (USA/Canada)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <!-- Add more country codes as needed -->
+                        </select>
+                        <input type="tel" name="telephone" placeholder="Téléphone" disabled required>
+                    </div>
+                  </p>
                   <p><strong>Sexe:</strong> 
                       <select name="sexe" disabled required>
                          <option value="M">M</option>

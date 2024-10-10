@@ -173,3 +173,18 @@ body {
     border-radius: 5px;
     font-size: 1rem;
 }
+
+.phone-input-container {
+  display: flex;
+  align-items: center; /* Aligns the select and input fields vertically */
+}
+
+.phone-input-container select {
+  width: 80px; /* Adjust the width of the prefix dropdown */
+  margin-right: 10px; /* Adds space between the prefix and the phone number */
+}
+
+.phone-input-container input {
+  flex: 1; /* Makes the phone number input take the remaining space */
+  padding: 8px;
+}
