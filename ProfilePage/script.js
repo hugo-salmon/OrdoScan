@@ -1,20 +1,17 @@
 const dropdown = document.querySelector('.dropdown');
 const dropdownContent = document.querySelector('.dropdown-content');
 
-// Variable pour gérer le délai avant la fermeture
 let dropdownTimeout;
 
-// Afficher le menu lorsque la souris survole le bouton ou le contenu
 dropdown.addEventListener('mouseenter', () => {
-    clearTimeout(dropdownTimeout); // Annule le délai de fermeture
+    clearTimeout(dropdownTimeout); 
     dropdownContent.style.display = 'block';
 });
 
-// Masquer le menu après un délai lorsque la souris quitte le bouton ou le contenu
 dropdown.addEventListener('mouseleave', () => {
     dropdownTimeout = setTimeout(() => {
         dropdownContent.style.display = 'none';
-    }, 300); // Délai de 300 ms avant de masquer le menu
+    }, 300); 
 });
 
 const notyf = new Notyf({
@@ -25,12 +22,10 @@ const notyf = new Notyf({
     }
 });
 
-// Function to save form data to local storage
 function saveFormData() {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
     const phoneNumber = document.querySelector('input[name="telephone"]').value;
     
-    // Store the phone number
     localStorage.setItem('telephone', phoneNumber);
     
     inputs.forEach(input => {
@@ -41,7 +36,6 @@ function saveFormData() {
     toggleEditMode(false);
 }
 
-// Function to load form data from local storage
 function loadFormData() {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
     
@@ -54,7 +48,6 @@ function loadFormData() {
     });
 }
 
-// Function to toggle between edit and view modes
 function toggleEditMode(isEditing) {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
     const editButton = document.getElementById('editBtn');
@@ -70,17 +63,14 @@ function toggleEditMode(isEditing) {
     cancelButton.style.display = isEditing ? 'inline-block' : 'none';
 }
 
-// Edit Button: Enable fields for editing
 document.getElementById('editBtn').addEventListener('click', () => toggleEditMode(true));
 
-// Cancel Button: Revert changes and disable fields
 document.getElementById('cancelBtn').addEventListener('click', () => {
     loadFormData();
     toggleEditMode(false);
     notyf.success('Modifications annulées.');
 });
 
-// Save Button: Validate and save the data
 document.getElementById('profileForm').addEventListener('submit', function (event) {
     event.preventDefault();
     if (validateForm()) {
@@ -88,12 +78,11 @@ document.getElementById('profileForm').addEventListener('submit', function (even
     }
 });
 
-// Function to validate the form
 function validateForm() {
     const inputs = document.querySelectorAll('.profile-details input, .profile-details select');
     const phoneInput = document.querySelector('input[name="telephone"]');
     const dobInput = document.querySelector('input[name="dob"]');
-    const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/; // Valid French phone number
+    const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/; 
     const today = new Date();
     const dob = new Date(dobInput.value);
     let allValid = true;
@@ -120,7 +109,6 @@ function validateForm() {
     return allValid;
 }
 
-// Function to validate individual fields
 function validateField(field) {
     if (!field.value.trim()) {
         setFieldError(field, 'Ce champ est requis.');
@@ -134,13 +122,11 @@ function validateField(field) {
     }
 }
 
-// Function to validate email format
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Function to set error on a field
 function setFieldError(field, message) {
     field.style.border = '1px solid red';
     const errorMessage = document.createElement('span');
@@ -154,7 +140,6 @@ function setFieldError(field, message) {
     notyf.error(message);
 }
 
-// Function to clear error from a field
 function clearFieldError(field) {
     field.style.border = '';
     const existingError = field.parentNode.querySelector('.error-message');
@@ -163,5 +148,4 @@ function clearFieldError(field) {
     }
 }
 
-// Load data when the page loads
 window.onload = loadFormData;

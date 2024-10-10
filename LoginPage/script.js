@@ -1,21 +1,18 @@
-const twilio = require('twilio');
+const notyf = new Notyf({
+    duration: 5000,
+    position: {
+        x: 'right',
+        y: 'top',
+    }
+});
 
-const numeroPhone= document.getElementById('test');
-const accountSid = 'TON_ACCOUNT_SID';
-const authToken = 'TON_AUTH_TOKEN';
-const client = twilio(accountSid, authToken);
+const containerLogin = document.getElementById("container-login");
+        containerLogin.addEventListener("click", () => {
+            // Affiche la notification de connexion
+            notyf.success('Connecté avec succès. Redirection en cours...');
 
-// Fonction pour envoyer un SMS
-function sendSms(to, message) {
-  client.messages
-  .create({
-    body: message,
-    from:numeroPhone,  // Ton numéro Twilio
-    to: to,  // Numéro du destinataire
-  })
-  .then(message => console.log(`Message envoyé avec SID: ${message.sid}`))
-  .catch(error => console.error('Erreur lors de l\'envoi du message:', error));
-}
-
-// Exemple d'envoi
-sendSms(numeroPhone, 'Voici une notification depuis Twilio');
+            // Attends 3 secondes avant de rediriger
+            setTimeout(() => {
+                window.location.replace("../ScannerPage/index.html");
+            }, 3000);
+        });

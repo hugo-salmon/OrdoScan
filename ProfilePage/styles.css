@@ -51,7 +51,7 @@ main {
 }
 
 .nav-links select {
-  background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+  background: #357ABD; 
   color: white;
   border: none;
   padding: 8px;
@@ -63,7 +63,7 @@ main {
 }
 
 .nav-links select:hover {
-  background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+  background: #2a5a8d;
 }
 
 .nav-links select:focus {
@@ -148,9 +148,8 @@ main {
   display: block;
 }
 
-/* Ajout d'une icône de flèche pour le bouton du dropdown */
 .user-menu .dropdown-btn::after {
-  content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+  content: '\f107'; 
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   margin-left: 5px;
@@ -165,9 +164,9 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; /* Aligne les éléments verticalement */
-  gap: 20px; /* Espace entre les liens */
-  flex-wrap: wrap; /* Permet de passer les liens à la ligne si l'écran est trop petit */
+  align-items: center; 
+  gap: 20px; 
+  flex-wrap: wrap; 
 }
 
 .footer p {
@@ -186,7 +185,6 @@ main {
   color: #b2ebf2;
 }
 
-/* Profile Section */
 .profile-section {
   padding: 2rem;
   max-width: 800px;
@@ -232,32 +230,30 @@ main {
   font-size: 1rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 0 10px; /* Ajoute un espacement horizontal entre les boutons */
+  margin: 0 10px; 
 }
 
 .edit-profile-btn:hover {
-  background-color: #0056b3; /* Couleur plus foncée au survol */
-  transform: translateY(-2px); /* Légère élévation au survol */
+  background-color: #0056b3; 
+  transform: translateY(-2px); 
 }
 
 .edit-profile-btn:active {
-  background-color: #003f88; /* Couleur encore plus foncée à l'activation */
-  transform: translateY(0); /* Remettre à sa place initiale lors du clic */
+  background-color: #003f88; 
+  transform: translateY(0); 
 }
 
-/* Styles spécifiques pour le bouton Annuler */
 #cancelBtn {
   background-color: #ff4d4d;
   color: white;
-  margin-right: 20px; /* Augmente l'espacement à droite pour séparer davantage les boutons */
+  margin-right: 20px; 
 }
 
 
 #cancelBtn:active {
-  background-color: #990000; /* Rouge encore plus foncé à l'activation */
+  background-color: #990000; 
 }
 
-/* Styles spécifiques pour le bouton Enregistrer */
 #saveBtn {
   background-color: #4CAF50;
   color: white;
@@ -265,11 +261,11 @@ main {
 
 
 #saveBtn:hover {
-  background-color: #388e3c; /* Vert plus foncé au survol */
+  background-color: #388e3c; 
 }
 
 #saveBtn:active {
-  background-color: #2e7d32; /* Vert encore plus foncé à l'activation */
+  background-color: #2e7d32; 
 }
 
 
@@ -285,7 +281,7 @@ main {
 .profile-details input, .profile-details select {
   padding: 8px;
   margin: 5px 0;
-  width: 100%; /* Adjust width as needed */
+  width: 100%; 
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
@@ -293,15 +289,15 @@ main {
 
 .phone-input-container {
   display: flex;
-  align-items: center; /* Aligns the select and input fields vertically */
+  align-items: center;
 }
 
 .phone-input-container select {
-  width: 80px; /* Adjust the width of the prefix dropdown */
-  margin-right: 10px; /* Adds space between the prefix and the phone number */
+  width: 80px; 
+  margin-right: 10px; 
 }
 
 .phone-input-container input {
-  flex: 1; /* Makes the phone number input take the remaining space */
+  flex: 1; 
   padding: 8px;
 }

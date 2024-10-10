@@ -55,7 +55,7 @@
     <div id="previewContainer">
       <h3 id="preview-title">Aperçu de l'ordonnance</h3>
       <div class="preview-header">
-        <p id="fileInfo">Aucun fichier sélectionné.</p> <!-- Mettre à jour ici -->
+        <p id="fileInfo">Aucun fichier sélectionné.</p> 
         <button id="removePreview">Supprimer l'ordonnance</button>
       </div>
       <div class="preview-box">
@@ -77,10 +77,8 @@
     
     <div id="loader" class="loader" hidden></div>
     
-    <!-- Message "Aucun médicament présent" -->
     <p id="noMedicationsMessage" style="display: none; text-align: center; color: #666;">Aucun médicament présent</p>
     
-    <!-- Récapitulatif des médicaments après confirmation -->
     <div id="recapContainer" style="display: none;">
       <h3>Récapitulatif des Médicaments</h3>
       <table id="recapTable">
@@ -96,13 +94,11 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Les lignes de récapitulatif des médicaments seront ajoutées ici via JavaScript -->
         </tbody>
       </table>
       <button id="addNewMedicationButton" class="add-medication-btn">Ajouter un médicament</button>
     </div>
     
-    <!-- Modale pour la vérification et la modification des médicaments -->
     <div id="medicationModal" class="modal" hidden>
       <div class="modal-content">
         <span class="close" id="closeModal">&times;</span>
@@ -120,17 +116,28 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Les lignes des médicaments seront ajoutées ici via JavaScript -->
           </tbody>
         </table>
         <p id="noResultsMessage" style="display: none; text-align: center; color: #666;">Aucun résultat</p>
         <div class="modal-buttons">
-          <button id="deleteSelected" style="display: none;">Supprimer les sélectionnés</button>
+          <button id="deleteSelected" style="display: none;">Supprimer les médicaments sélectionnés</button>
           <button id="addMedication">Ajouter un médicament</button>
           <button id="confirmMedications">Confirmer</button>
         </div>
       </div>
     </div>
+    <div id="deleteConfirmationModal" class="delete-modal" hidden>
+      <div class="delete-modal-content">
+        <span class="close" id="closeDeleteModal">&times;</span>
+        <h3>Confirmation de suppression</h3>
+        <p>Êtes-vous sûr de vouloir supprimer ce médicament ? Cette action est irréversible.</p>
+        <div class="delete-modal-buttons">
+          <button id="cancelDelete" class="cancel-btn">Annuler</button>
+          <button id="confirmDelete" class="delete-btn">Confirmer</button>
+        </div>
+      </div>
+    </div>
+    
   </main>
   
   <footer class="footer">

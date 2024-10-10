@@ -10,9 +10,6 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Fonction pour générer le fichier .ics
-// Fonction pour générer le fichier .ics
-// Fonction pour générer le fichier .ics avec la récence
 function generateICS(medicationData) {
     let icsContent = `BEGIN:VCALENDAR
     VERSION:2.0
@@ -28,15 +25,12 @@ function generateICS(medicationData) {
             eventStart.setMinutes(minutes);
             eventStart.setSeconds(0);
             
-            // Format de la date et de l'heure pour l'événement (YYYYMMDDTHHMMSS)
             const startTime = formatDateToICS(eventStart);
             
-            // Ajouter la date de fin pour la règle de récurrence
             const endDateObj = new Date(endDate);
             endDateObj.setHours(23, 59, 59);
             const endDateFormatted = formatDateToICS(endDateObj);
             
-            // Inclure la règle de récurrence en fonction de la récence
             icsContent += `
             BEGIN:VEVENT
             SUMMARY:Rappel - ${name}
@@ -78,7 +72,7 @@ app.post('/create-ics', (req, res) => {
         }
         
         const icsUrl = `http://localhost:${port}/download/rappels_medication.ics`;
-        sendEmailWithICS(recipientEmail, icsUrl, medicationData, res); // On passe les données des médicaments ici.
+        sendEmailWithICS(recipientEmail, icsUrl, medicationData, res); 
     });
 });
 
@@ -92,7 +86,6 @@ function sendEmailWithICS(email, icsUrl, medicationData, res) {
         },
     });
     
-    // Construire le contenu de l'email avec les détails des médicaments, y compris la récurrence
     let emailContent = `Bonjour,\n\nVous trouverez ci-dessous les détails de vos médicaments et leurs rappels :\n\n`;
     
     medicationData.forEach((med, index) => {

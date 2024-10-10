@@ -51,7 +51,7 @@ main {
 }
 
 .nav-links select {
-  background: #357ABD; /* Couleur bleue pour s'harmoniser avec le thème */
+  background: #357ABD; 
   color: white;
   border: none;
   padding: 8px;
@@ -63,7 +63,7 @@ main {
 }
 
 .nav-links select:hover {
-  background: #2a5a8d; /* Couleur légèrement plus foncée au survol */
+  background: #2a5a8d; 
 }
 
 .nav-links select:focus {
@@ -148,9 +148,8 @@ main {
   display: block;
 }
 
-/* Ajout d'une icône de flèche pour le bouton du dropdown */
 .user-menu .dropdown-btn::after {
-  content: '\f107'; /* Unicode pour l'icône "fa-chevron-down" */
+  content: '\f107'; 
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   margin-left: 5px;
@@ -165,9 +164,9 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; /* Aligne les éléments verticalement */
-  gap: 20px; /* Espace entre les liens */
-  flex-wrap: wrap; /* Permet de passer les liens à la ligne si l'écran est trop petit */
+  align-items: center; 
+  gap: 20px; 
+  flex-wrap: wrap; 
 }
 
 .footer p {
@@ -189,18 +188,18 @@ main {
 .main-title {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #0E7ACA; /* Même couleur que le thème pour rester cohérent */
+  color: #0E7ACA; 
   text-align: center;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* Ajoute une légère ombre pour plus de relief */
-  border-bottom: 2px solid #0E7ACA; /* Ligne de séparation en dessous */
-  padding-bottom: 10px; /* Espace entre le titre et la ligne de séparation */
-  margin-top: 30px; /* Espace en haut du titre */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); 
+  border-bottom: 2px solid #0E7ACA; 
+  padding-bottom: 10px; 
+  margin-top: 30px; 
 }
 
 .placeholder {
-  background-color: #e6f2ff; /* Couleur de fond légère pour le message */
-  border: 2px dashed #357ABD; /* Bordure pour indiquer que c'est une section en développement */
+  background-color: #e6f2ff; 
+  border: 2px dashed #357ABD; 
   padding: 20px;
   text-align: center;
   border-radius: 10px;
@@ -208,10 +207,10 @@ main {
   color: #333;
   max-width: 600px;
   margin: 0 auto;
-  margin-top: 30px; /* Espacement avec le titre */
+  margin-top: 30px; 
 }
 
 .placeholder p {
   margin: 0;
-  line-height: 1.6; /* Pour améliorer la lisibilité du texte */
+  line-height: 1.6; 
 }
